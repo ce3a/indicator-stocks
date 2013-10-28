@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "indicator-stocks", "indicator-stocks.csproj", "{EE35F76D-F5B1-4B31-9196-742416BA9215}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE35F76D-F5B1-4B31-9196-742416BA9215}.Debug|x86.ActiveCfg = Debug|x86
+		{EE35F76D-F5B1-4B31-9196-742416BA9215}.Debug|x86.Build.0 = Debug|x86
+		{EE35F76D-F5B1-4B31-9196-742416BA9215}.Release|x86.ActiveCfg = Release|x86
+		{EE35F76D-F5B1-4B31-9196-742416BA9215}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = indicator-stocks.csproj
+	EndGlobalSection
+EndGlobal
