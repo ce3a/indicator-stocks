@@ -12,7 +12,7 @@ namespace Yahoo
 		{
 		}
 
-		public static float[] GetQuote(string[] symbols, string format, int timeout = 5000)
+		public static float[] GetQuote(string[] symbols, string format)
 		{
 			float[] quotes = new float[symbols.Length];
 
@@ -23,25 +23,25 @@ namespace Yahoo
 
 			HttpWebRequest  req;
 			HttpWebResponse rsp;
+			StreamReader    strm;
 
 			try
 			{
 				req = (HttpWebRequest)WebRequest.Create(url);
-				req.Timeout = timeout;
-				rsp = (HttpWebResponse)req.GetResponse();
+
+				using (rsp = (HttpWebResponse)req.GetResponse())
+				{
+					strm = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
+
+					for (int i = 0; i < quotes.Length; i++)
+						float.TryParse(strm.ReadLine().Replace(".",","), out quotes[i]);
+				}
 			}
 			catch (WebException ex)
 			{
 				Console.WriteLine(ex.Message);
-				return quotes;
 			}
 
-			StreamReader strm = 
-	          new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
-
-			for (int i = 0; i < quotes.Length; i++)
-				float.TryParse (strm.ReadLine().Replace(".",","), out quotes[i]);
-				
 			return quotes;
 		}
 	}

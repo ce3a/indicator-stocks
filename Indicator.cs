@@ -51,10 +51,8 @@ namespace indicatorstockmarket
 		{
 			AccelGroup agr = new AccelGroup();
 
-			// Separator
 			menu.Append(new SeparatorMenuItem());
 
-			// Quit menu item
 			ImageMenuItem menuItemQuit = new ImageMenuItem(Stock.Quit, agr);
 			menuItemQuit.Activated += OnQuitActivated;
 			menuItemQuit.AddAccelerator("activate", agr,

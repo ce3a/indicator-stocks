@@ -53,13 +53,14 @@ namespace indicatorstockmarket
 	    {
 			int i = 0;
 
+			Thread.Sleep(1000);
+
 	        while (!_shouldStop)
 	        {
-				Thread.Sleep(3000);
 				Console.WriteLine("worker thread: working... " + ++i);
 
 				string[] symbols = {"AMD.DE", "TL0.DE", "SAP.DE", "xyi"};
-				float[]  quotes  = Finance.GetQuote(symbols, Format.Bid, 5000);
+				float[]  quotes  = Finance.GetQuote(symbols, Format.Bid);
 
 				System.Collections.IEnumerator symbolsEnum = symbols.GetEnumerator();
 				System.Collections.IEnumerator quotesEnum  = quotes.GetEnumerator();
@@ -76,6 +77,8 @@ namespace indicatorstockmarket
 				int j = 0;
 				foreach (string symbol in symbols)
 					Console.WriteLine(symbol + ": " + quotes[j++]);
+
+				Thread.Sleep(10000);
 	        }
 
 	        Console.WriteLine("worker thread: terminating gracefully.");
