@@ -12,7 +12,7 @@ namespace Yahoo
 		{
 		}
 
-		public static float[] GetQuote(string[] symbols, string format, int timeout = 3000)
+		public static float[] GetQuote(string[] symbols, string format, int timeout = 5000)
 		{
 			float[] quotes = new float[symbols.Length];
 
