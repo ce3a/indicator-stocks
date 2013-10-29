@@ -21,17 +21,13 @@ namespace Yahoo
 				url += (symbol + '+');
 			url = url.TrimEnd (new char[] {'+'}) + "&f=" + format;
 
-			HttpWebRequest  req;
-			HttpWebResponse rsp;
-			StreamReader    strm;
-
 			try
 			{
-				req = (HttpWebRequest)WebRequest.Create(url);
+				HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
 
-				using (rsp = (HttpWebResponse)req.GetResponse())
+				using (HttpWebResponse rsp = (HttpWebResponse)req.GetResponse())
 				{
-					strm = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
+					StreamReader strm = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
 
 					for (int i = 0; i < quotes.Length; i++)
 						float.TryParse(strm.ReadLine().Replace(".",","), out quotes[i]);
@@ -52,4 +48,3 @@ namespace Yahoo
 		public static readonly string Bid = "b";
 	}
 }
-

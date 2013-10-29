@@ -12,18 +12,16 @@ namespace indicatorstockmarket
 
 		public Indicator()
 		{
-			indicator = new ApplicationIndicator("example-simple-client",
-								                 "go-top",
+			indicator = new ApplicationIndicator("indicator-stocks",
+								                 "indicator-stocks",
 			                                     Category.ApplicationStatus);
 
 			defaultMenu = AddQuitMenu(new Menu());
 			defaultMenu.ShowAll();
-		}
 
-		public void Initialize()
-		{
 			indicator.Menu   = defaultMenu;
 			indicator.Status = Status.Active;
+			indicator.Title  = "Stocks Indicator";
 		}
 
 		public void Update(Dictionary<string, float> dict)

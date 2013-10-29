@@ -14,8 +14,6 @@ namespace indicatorstockmarket
 
 			Indicator indicator = new Indicator();
 
-			indicator.Initialize();
-
 			// Create the thread object. This does not start the thread.
 	        Worker workerObject = new Worker(indicator);
 	        Thread workerThread = new Thread(workerObject.DoWork);

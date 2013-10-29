@@ -77,4 +77,7 @@
     <Compile Include="Finance.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="notes.txt" />
+  </ItemGroup>
 </Project>
