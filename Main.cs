@@ -1,90 +1,55 @@
 using System;
 using Gtk;
 using System.Threading;
-using Yahoo;
 using System.Collections.Generic;
+using System.Timers;
+using Yahoo;
 
 namespace indicatorstockmarket
 {
 	class IndicatorStockMarket
 	{
+		private static Indicator indicator;
+		private static System.Timers.Timer timer;
+
 		public static void Main (string[] args)
 		{
 			Application.Init();
 
-			Indicator indicator = new Indicator();
+			indicator = new Indicator();
 
-			// Create the thread object. This does not start the thread.
-	        Worker workerObject = new Worker(indicator);
-	        Thread workerThread = new Thread(workerObject.DoWork);
-
-	        // Start the worker thread.
-	        workerThread.Start();
-	        Console.WriteLine("main thread: Starting worker thread...");
+			timer = new System.Timers.Timer(5000);
+			timer.Elapsed += new ElapsedEventHandler(OnTimer);
+			timer.Enabled = true;
+			timer.AutoReset = true;
 
 			Application.Run();
 
-			// Request that the worker thread stop itself:
-	        workerObject.RequestStop();
-
-	        // Use the Join method to block the current thread 
-	        // until the object's thread terminates.
-	        workerThread.Join();
-	        Console.WriteLine("main thread: Worker thread has terminated.");
+			timer.Dispose();
 		}
-	}
 
-	public class Worker
-	{
-		// Volatile is used as hint to the compiler that this data
-	    // member will be accessed by multiple threads.
-	    private volatile bool _shouldStop;
-		Indicator indicator;
-
-		public Worker(Indicator indicator)
+		private static void OnTimer (object sender, ElapsedEventArgs e)
 		{
-			this.indicator = indicator;
+			Console.WriteLine("OnTimer");
+
+			string[] symbols = {"AMD.DE", "TL0.DE", "SAP.DE", "SIE.DE"};
+			float[]  quotes  = Finance.GetQuote(symbols, Format.Bid);
+
+			System.Collections.IEnumerator symbolsEnum = symbols.GetEnumerator();
+			System.Collections.IEnumerator quotesEnum  = quotes.GetEnumerator();
+
+			Dictionary<string, float> dict = new Dictionary<string, float>();
+
+			while (symbolsEnum.MoveNext())
+				if (quotesEnum.MoveNext())
+					dict.Add((string)symbolsEnum.Current, (float)quotesEnum.Current);
+
+			indicator.Update(dict);
+
+			// Debug
+			int j = 0;
+			foreach (string symbol in symbols)
+				Console.WriteLine(symbol + ": " + quotes[j++]);
 		}
-
-	    // This method will be called when the thread is started.
-	    public void DoWork()
-	    {
-			int i = 0;
-
-			Thread.Sleep(1000);
-
-	        while (!_shouldStop)
-	        {
-				Console.WriteLine("worker thread: working... " + ++i);
-
-				string[] symbols = {"AMD.DE", "TL0.DE", "SAP.DE", "xyi"};
-				float[]  quotes  = Finance.GetQuote(symbols, Format.Bid);
-
-				System.Collections.IEnumerator symbolsEnum = symbols.GetEnumerator();
-				System.Collections.IEnumerator quotesEnum  = quotes.GetEnumerator();
-
-				Dictionary<string, float> dict = new Dictionary<string, float>();
-
-				while (symbolsEnum.MoveNext())
-					if (quotesEnum.MoveNext())
-						dict.Add((string)symbolsEnum.Current, (float)quotesEnum.Current);
-
-				indicator.Update(dict);
-
-				// Debug
-				int j = 0;
-				foreach (string symbol in symbols)
-					Console.WriteLine(symbol + ": " + quotes[j++]);
-
-				Thread.Sleep(10000);
-	        }
-
-	        Console.WriteLine("worker thread: terminating gracefully.");
-	    }
-	    public void RequestStop()
-	    {
-	        _shouldStop = true;
-	    }
 	}
-
 }
