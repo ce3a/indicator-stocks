@@ -4,15 +4,15 @@ using System.IO;
 using System.Text;
 using System.Collections;
 
-namespace Yahoo
+namespace Yahoo.Finance
 {
-	public class Finance
+	public class Quotes
 	{
-		public Finance()
+		public Quotes()
 		{
 		}
 
-		public static float[] GetQuote(string[] symbols, string format)
+		public static float[] GetQuotes(string[] symbols, string format)
 		{
 			float[] quotes = new float[symbols.Length];
 

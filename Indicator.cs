@@ -2,47 +2,56 @@ using System;
 using AppIndicator;
 using Gtk;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Pango;
 
-namespace indicatorstockmarket
+namespace indicatorstocks
 {
 	public class Indicator
 	{
 		private ApplicationIndicator indicator;
-		private Menu defaultMenu;
+		private Menu menu;
 
-		public Indicator()
+		private string[] symbols;
+		public  string[] Symbols
+		{
+			get {return symbols;}
+		}
+
+		public Indicator(string[] symbols)
 		{
 			indicator = new ApplicationIndicator("indicator-stocks",
 								                 "indicator-stocks",
 			                                     Category.ApplicationStatus);
 
-			defaultMenu = AddQuitMenu(new Menu());
-			defaultMenu.ShowAll();
+			menu = new Menu();
 
-			indicator.Menu   = defaultMenu;
+			this.symbols = symbols;
+
+			foreach (string symbol in symbols)
+				menu.Append(new MenuItem(symbol + ": ?"));
+
+			AddQuitMenu(menu);
+			menu.ShowAll();
+
+			indicator.Menu   = menu;
 			indicator.Status = Status.Active;
 			indicator.Title  = "Stocks Indicator";
 		}
 
-		public void Update(Dictionary<string, float> dict)
+		public void Update(float[] quotes)
 		{
-			Menu menu = new Menu();
+			System.Collections.IEnumerator menuItemEnum = menu.AllChildren.GetEnumerator();
+			System.Collections.IEnumerator symbolsEnum  = symbols.GetEnumerator();
 
-			foreach (KeyValuePair<string, float> pair in dict)
+			foreach (float quote in quotes)
 			{
-				MenuItem menuItem;
-
-				if (pair.Value <= 0)
-					menuItem = new MenuItem(string.Format("{0}: ?", pair.Key));
-				else
-					menuItem = new MenuItem(string.Format("{0}: {1:0.00}", pair.Key, pair.Value));
-
-				menu.Append(menuItem);
+				if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
+				{
+					Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
+					label.Text = String.Format("{0}: {1:0.00}", symbolsEnum.Current, quote);
+				}
 			}
-
-			AddQuitMenu(menu);
-			menu.ShowAll();
-			indicator.Menu = menu;
 		}
 
 		private Menu AddQuitMenu(Menu menu)
