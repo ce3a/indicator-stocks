@@ -40,6 +40,11 @@ namespace Yahoo.Finance
 
 			return quotes;
 		}
+
+		public static string GetChartUrl(string symbol)
+		{
+			return "http://finance.yahoo.com/echarts?s=" + symbol + "+Interactive#symbol=" + symbol + ";range=1d";
+		}
 	}
 
 	public sealed class Format

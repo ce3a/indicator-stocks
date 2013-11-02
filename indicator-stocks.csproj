@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EE35F76D-F5B1-4B31-9196-742416BA9215}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>indicatorstockmarket</RootNamespace>
-    <AssemblyName>indicator-stock-market</AssemblyName>
+    <RootNamespace>indicatorstocks</RootNamespace>
+    <AssemblyName>indicator-stocks</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,6 +75,7 @@
     <Compile Include="Indicator.cs" />
     <Compile Include="IndicatorStocks.cs" />
     <Compile Include="Yahoo\Quotes.cs" />
+    <Compile Include="UserEventHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

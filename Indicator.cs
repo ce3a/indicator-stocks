@@ -1,14 +1,14 @@
 using System;
-using AppIndicator;
-using Gtk;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Pango;
+using Gtk;
+using AppIndicator;
 
 namespace indicatorstocks
 {
 	public class Indicator
 	{
+		private UserEventHandler userEventHandler;
 		private ApplicationIndicator indicator;
 		private Menu menu;
 
@@ -18,20 +18,25 @@ namespace indicatorstocks
 			get {return symbols;}
 		}
 
-		public Indicator(string[] symbols)
+		public Indicator(UserEventHandler userEventHandler, string[] symbols)
 		{
 			indicator = new ApplicationIndicator("indicator-stocks",
 								                 "indicator-stocks",
 			                                     Category.ApplicationStatus);
 
-			menu = new Menu();
-
+			this.userEventHandler = userEventHandler;
 			this.symbols = symbols;
 
-			foreach (string symbol in symbols)
-				menu.Append(new MenuItem(symbol + ": ?"));
+			menu = new Menu();
 
-			AddQuitMenu(menu);
+			foreach (string symbol in symbols)
+			{
+				MenuItem menuItem = new MenuItem(symbol + ": ???");
+				menuItem.Activated += userEventHandler.OnQuoteSelected;
+				menu.Append(menuItem);
+			}
+
+			AddDefaultMenus(menu);
 			menu.ShowAll();
 
 			indicator.Menu   = menu;
@@ -49,19 +54,29 @@ namespace indicatorstocks
 				if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
 				{
 					Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
-					label.Text = String.Format("{0}: {1:0.00}", symbolsEnum.Current, quote);
+					label.Text = symbolsEnum.Current + "  \t" + 
+						(quote > 0 ? quote.ToString("0.00").PadLeft(6,'\x2007') : "???");
+
+					System.Threading.Thread.Sleep(10);	// HACK !!!
 				}
 			}
 		}
 
-		private Menu AddQuitMenu(Menu menu)
+		private Menu AddDefaultMenus(Menu menu)
 		{
 			AccelGroup agr = new AccelGroup();
 
 			menu.Append(new SeparatorMenuItem());
 
+			ImageMenuItem menuItemInfo = new ImageMenuItem(Stock.About, agr);
+			menuItemInfo.Activated += userEventHandler.OnInfo;
+			menuItemInfo.AddAccelerator("activate", agr,
+				new AccelKey(Gdk.Key.q, Gdk.ModifierType.ControlMask, AccelFlags.Visible));
+
+			menu.Append(menuItemInfo);
+
 			ImageMenuItem menuItemQuit = new ImageMenuItem(Stock.Quit, agr);
-			menuItemQuit.Activated += OnQuitActivated;
+			menuItemQuit.Activated += userEventHandler.OnQuit;
 			menuItemQuit.AddAccelerator("activate", agr,
 				new AccelKey(Gdk.Key.q, Gdk.ModifierType.ControlMask, AccelFlags.Visible));
 
@@ -69,10 +84,5 @@ namespace indicatorstocks
 
 			return menu;
 		}
-
-		private void OnQuitActivated(object sender, EventArgs args)
-    	{
-        	Application.Quit();
-    	}
 	}
 }

@@ -16,11 +16,12 @@ namespace indicatorstocks
 		{
 			Application.Init();
 
-			indicator = new Indicator(new string[]{"AMD.DE", "SAP.DE", "SIE.DE", "TL0.DE"});
+			indicator = new Indicator(new UserEventHandler(), 
+			                          new string[]{"AMD.DE", "SAP.DE", "SIE.DE", "TL0.DE"});
 
 			DoWork();
 
-			timer = new System.Timers.Timer(6000);
+			timer = new System.Timers.Timer(1000);
 			timer.Elapsed += new ElapsedEventHandler(OnTimer);
 			timer.Enabled = true;
 			timer.AutoReset = true;

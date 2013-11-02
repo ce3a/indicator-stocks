@@ -26,8 +26,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1600"
-     inkscape:window-height="876"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
      id="namedview19"
      showgrid="false"
      inkscape:snap-nodes="true"
@@ -45,8 +45,8 @@
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
      inkscape:zoom="32"
-     inkscape:cx="8.403255"
-     inkscape:cy="7.7863289"
+     inkscape:cx="-1.1875"
+     inkscape:cy="6.5363289"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -71,7 +71,7 @@
        id="linearGradient5284"
        osb:paint="solid">
       <stop
-         style="stop-color:#bebebe;stop-opacity:1;"
+         style="stop-color:#01d64c;stop-opacity:1;"
          offset="0"
          id="stop5286" />
     </linearGradient>
