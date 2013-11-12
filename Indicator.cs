@@ -18,11 +18,9 @@ namespace indicatorstocks
 			get {return symbols;}
 		}
 
-		public Indicator(UserEventHandler userEventHandler, string[] symbols)
+		public Indicator(string name, UserEventHandler userEventHandler, string[] symbols)
 		{
-			indicator = new ApplicationIndicator("indicator-stocks",
-								                 "indicator-stocks",
-			                                     Category.ApplicationStatus);
+			indicator = new ApplicationIndicator(name, name, Category.ApplicationStatus);
 
 			this.userEventHandler = userEventHandler;
 			this.symbols = symbols;
@@ -41,7 +39,6 @@ namespace indicatorstocks
 
 			indicator.Menu   = menu;
 			indicator.Status = Status.Active;
-			indicator.Title  = "Stocks Indicator";
 		}
 
 		public void Update(float[] quotes)
