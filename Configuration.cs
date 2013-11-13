@@ -10,24 +10,24 @@ namespace indicatorstocks
 
 		public Configuration (String name)
 		{
-			path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
+			path = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData); 
 			path += @"/" + name + @"/symbols.conf";
 		
-			if (!Directory.Exists(Path.GetDirectoryName(path)))
-				Directory.CreateDirectory(Path.GetDirectoryName(path));
+			if (!Directory.Exists (Path.GetDirectoryName (path)))
+				Directory.CreateDirectory (Path.GetDirectoryName (path));
 
-			if (!File.Exists(path))
-				File.Create(path);
+			if (!File.Exists (path))
+				using (File.Create(path));
 		}
 
 		public string[] GetSymbols ()
 		{
 			List<string> symbols = new List<string>();
+			string line;
 
-			using (StreamReader sr = new StreamReader(path)) 
+			using (StreamReader reader = new StreamReader(path)) 
 			{
-			    string line;
-			    while ((line = sr.ReadLine()) != null) 
+			    while ((line = reader.ReadLine()) != null) 
 			        symbols.Add(line);
 			}
 
