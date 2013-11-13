@@ -11,17 +11,21 @@ namespace indicatorstocks
 	{
 		private static Indicator indicator;
 		private static System.Timers.Timer timer;
+		private static Configuration configuration;
+
+		private static readonly int time = 30000;
+		private static readonly string name = "indicator-stocks";
 
 		public static void Main (string[] args)
 		{
 			Application.Init();
 
-			indicator = new Indicator(new UserEventHandler(), 
-			                          new string[]{"AMD.DE", "SAP.DE", "SIE.DE", "TL0.DE"});
+			configuration = new Configuration(name);
+			indicator = new Indicator(name, new UserEventHandler(), configuration.GetSymbols());
 
 			DoWork();
 
-			timer = new System.Timers.Timer(1000);
+			timer = new System.Timers.Timer(time);
 			timer.Elapsed += new ElapsedEventHandler(OnTimer);
 			timer.Enabled = true;
 			timer.AutoReset = true;
@@ -36,12 +40,6 @@ namespace indicatorstocks
 			float[] quotes = Quotes.GetQuotes(indicator.Symbols, Format.Bid);
 
 			indicator.Update(quotes);
-
-			// Debug
-			int j = 0;
-			Console.WriteLine("----");
-			foreach (string symbol in indicator.Symbols)
-				Console.WriteLine(symbol + ": " + quotes[j++]);
 		}
 
 		private static void OnTimer (object sender, ElapsedEventArgs e)

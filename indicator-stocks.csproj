@@ -76,6 +76,7 @@
     <Compile Include="IndicatorStocks.cs" />
     <Compile Include="Yahoo\Quotes.cs" />
     <Compile Include="UserEventHandler.cs" />
+    <Compile Include="Configuration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
