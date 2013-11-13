@@ -32,10 +32,10 @@ namespace indicatorstocks
 				as AssemblyCopyrightAttribute).Copyright;
 
 			dialog.Response += delegate {
-				dialog.Destroy ();
+				dialog.Destroy();
 			};
 			
-			dialog.Run ();
+			dialog.Run();
 		}
 
 		public void OnQuit(object sender, EventArgs args)
@@ -45,11 +45,7 @@ namespace indicatorstocks
 
 		public void OnQuoteSelected(object sender, EventArgs args)
 		{
-			MenuItem menuItem = (MenuItem)sender;
-
-			string symbol = ((Label)menuItem.Child).Text;
-			symbol = symbol.Substring(0, symbol.IndexOf(' '));
-
+			string symbol = Indicator.GetSymbolFromMenuItem((MenuItem)sender);
 			string url = Quotes.GetChartUrl(symbol);
 
 			Process.Start(url);

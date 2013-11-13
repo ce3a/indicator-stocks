@@ -12,6 +12,8 @@ namespace indicatorstocks
 		private ApplicationIndicator indicator;
 		private Menu menu;
 
+		private static readonly string symbolQuoteSeparator = "  \t";
+
 		private string[] symbols;
 		public  string[] Symbols
 		{
@@ -46,20 +48,26 @@ namespace indicatorstocks
 
 		public void Update(float[] quotes)
 		{
-			System.Collections.IEnumerator menuItemEnum = menu.AllChildren.GetEnumerator();
-			System.Collections.IEnumerator symbolsEnum  = symbols.GetEnumerator();
+			Gtk.Application.Invoke(delegate {
+				System.Collections.IEnumerator menuItemEnum = menu.AllChildren.GetEnumerator();
+				System.Collections.IEnumerator symbolsEnum  = symbols.GetEnumerator();
 
-			foreach (float quote in quotes)
-			{
-				if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
+				foreach (float quote in quotes)
 				{
-					Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
-					label.Text = symbolsEnum.Current + "  \t" + 
-						(quote > 0 ? quote.ToString("0.00").PadLeft(6,'\x2007') : "???");
-
-					System.Threading.Thread.Sleep(10);	// HACK !!!
+					if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
+					{
+						Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
+						label.Text = symbolsEnum.Current + symbolQuoteSeparator + 
+							(quote > 0 ? quote.ToString("0.00").PadLeft(6,'\x2007') : "???");
+					}
 				}
-			}
+		    });
+		}
+
+		public static string GetSymbolFromMenuItem(MenuItem menuItem)
+		{
+			string symbol = ((Label)menuItem.Child).Text;
+			return symbol.Substring(0, symbol.IndexOf(symbolQuoteSeparator));
 		}
 
 		private Menu AddDefaultMenus(Menu menu)
