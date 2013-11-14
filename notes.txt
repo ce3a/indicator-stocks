@@ -1,4 +1,4 @@
 Icons:
 format svg
-placed in /usr/share/icons/hicolor/scalable/status/
-executed sudo gtk-update-icon-cache /usr/share/icons/hicolor/
+place in /usr/share/icons/hicolor/scalable/status/
+execute sudo gtk-update-icon-cache /usr/share/icons/hicolor/
