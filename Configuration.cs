@@ -10,7 +10,7 @@ namespace indicatorstocks
 
 		public Configuration (String name)
 		{
-			path = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData); 
+			path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
 			path += @"/" + name + @"/symbols.conf";
 		
 			if (!Directory.Exists (Path.GetDirectoryName (path)))

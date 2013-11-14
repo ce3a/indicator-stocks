@@ -73,6 +73,13 @@ namespace indicatorstocks
 
 			menu.Append(new SeparatorMenuItem());
 
+			ImageMenuItem menuItemHelp = new ImageMenuItem(Stock.Help, agr);
+			menuItemHelp.Activated += userEventHandler.OnHelp;
+			menuItemHelp.AddAccelerator("activate", agr,
+				new AccelKey(Gdk.Key.q, Gdk.ModifierType.ControlMask, AccelFlags.Visible));
+
+			menu.Append(menuItemHelp);
+
 			ImageMenuItem menuItemInfo = new ImageMenuItem(Stock.About, agr);
 			menuItemInfo.Activated += userEventHandler.OnInfo;
 			menuItemInfo.AddAccelerator("activate", agr,
