@@ -69,17 +69,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Indicator.cs" />
-    <Compile Include="IndicatorStocks.cs" />
-    <Compile Include="Yahoo\Quotes.cs" />
-    <Compile Include="UserEventHandler.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="src\Yahoo\Quotes.cs" />
+    <Compile Include="src\AssemblyInfo.cs" />
+    <Compile Include="src\Configuration.cs" />
+    <Compile Include="src\Indicator.cs" />
+    <Compile Include="src\MainWindow.cs" />
+    <Compile Include="src\UserEventHandler.cs" />
+    <Compile Include="src\IndicatorStocks.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Yahoo\" />
+    <Folder Include="src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="help\C\add-symbols.page" />
+    <None Include="help\C\index.page" />
+    <None Include="help\C\introduction.page" />
+    <None Include="help\C\legal.xml" />
   </ItemGroup>
 </Project>

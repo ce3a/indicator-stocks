@@ -1,4 +1,10 @@
+INSTALL
+
 Icons:
 format svg
 place in /usr/share/icons/hicolor/scalable/status/
 execute sudo gtk-update-icon-cache /usr/share/icons/hicolor/
+
+Help:
+copy help directory content to /usr/share/gnome/help/indicator-stocks/
+

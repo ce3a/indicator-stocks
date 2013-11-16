@@ -1,0 +1,30 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="topic" style="task"
+      id="add-symbols">
+
+  <info>
+    <link type="guide" xref="index#symbols"/>
+    <desc>Add symbols to the indicator.</desc>
+    <revision pkgversion="3.0" version="0.1" date="2010-05-29" status="candidate"/>
+    <credit type="author">
+      <name>Sergej Sawazki</name>
+      <email>ce3a@gmx.de</email>
+    </credit>    
+<!--
+    <copyright>
+      <year>2010</year>
+      <name>GNOME Documentation Project</name>
+    </copyright>
+-->
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+  </info>
+
+  <title>Add Symbos</title>    
+  
+  <p>
+    You can add symbols by editing the ...
+    One symble per line.
+  </p>
+  
+</page>
