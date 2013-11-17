@@ -45,8 +45,11 @@ namespace indicatorstocks
 				typeof (AssemblyTitleAttribute), false)[0]
 				as AssemblyTitleAttribute).Title;
 			
-			dialog.Version = asm.GetName().Version.ToString();
-			
+			dialog.Version = String.Format("{0}.{1}.{2}",
+			                               asm.GetName().Version.Major,
+			                               asm.GetName().Version.Minor,
+			                               asm.GetName().Version.Build);
+
 			dialog.Comments = (asm.GetCustomAttributes(
 				typeof (AssemblyDescriptionAttribute), false)[0]
 				as AssemblyDescriptionAttribute).Description;
