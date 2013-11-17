@@ -1,0 +1,5 @@
+indicator-stocks (0.1.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- sergej <ce3a@gmx.de>  Sun, 17 Nov 2013 14:36:54 +0100

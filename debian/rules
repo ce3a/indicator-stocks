@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+override_dh_auto_build:
+	xbuild $(CURDIR)/indicator-stocks.sln /p:Configuration=Release
+
+override_dh_auto_clean:
+	xbuild $(CURDIR)/indicator-stocks.sln /p:Configuration=Release /t:Clean
+
+%:
+	dh $@ --with=cli --exclude-moduleref=glib-2.0.dll

@@ -13,8 +13,8 @@
     </credit>    
 <!--
     <copyright>
-      <year>2010</year>
-      <name>GNOME Documentation Project</name>
+      <year>2013</year>
+      <name>Sergej Sawazki</name>
     </copyright>
 -->
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
@@ -23,8 +23,16 @@
   <title>Add Symbos</title>    
   
   <p>
-    You can add symbols by editing the ...
-    One symble per line.
+    You can add symbols by editing the ~/.config/indicator-stocks/symbols.conf file.
+    Add one symbol per line.
   </p>
   
+  <p>
+  Example:
+  SAP.DE
+  </p>
+  
+  <p>
+  SAP = SAP AG, DE = XETRA
+  </p>
 </page>

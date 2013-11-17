@@ -1,3 +1,5 @@
 *.userprefs
 bin/
 notes.txt~
+.pc
+obj

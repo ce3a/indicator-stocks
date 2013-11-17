@@ -1,0 +1,36 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ indicator-stocks (0.1.0-1) unstable; urgency=low
+ .
+   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+Author: sergej <ce3a@gmx.de>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- indicator-stocks-0.1.0.orig/indicator-stocks.desktop
++++ indicator-stocks-0.1.0/indicator-stocks.desktop
+@@ -2,7 +2,7 @@
+ Version=1.0
+ Type=Application
+ Terminal=false
+-Exec=/usr/bin/mono /usr/bin/indicator-stocks.exe "$@"
++Exec=indicator-stocks
+ Name=indicator-stocks
+ Comment=Simple stock quotes indicator
+ Icon=indicator-stocks

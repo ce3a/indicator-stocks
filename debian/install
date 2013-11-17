@@ -1,0 +1,8 @@
+bin/Release/indicator-stocks.exe usr/lib/indicator-stocks
+indicator-stocks usr/bin
+indicator-stocks.desktop usr/share/applications
+icons/scalable/indicator-stocks.svg /usr/share/icons/hicolor/scalable/status
+help/C/add-symbols.page usr/share/gnome/help/indicator-stocks/C
+help/C/index.page usr/share/gnome/help/indicator-stocks/C
+help/C/introduction.page usr/share/gnome/help/indicator-stocks/C
+help/C/legal.xml usr/share/gnome/help/indicator-stocks/C
