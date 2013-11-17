@@ -14,8 +14,8 @@
     </credit>
 <!--
     <copyright>
-      <year>2010</year>
-      <name>GNOME Documentation Project</name>
+      <year>2013</year>
+      <name>Sergej Sawazki</name>
     </copyright>
 -->
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
@@ -25,6 +25,7 @@
 
   <p>
     <app>indicator-stocks</app> is a simple stock quotes indicator.
+     It uses Yahoo Finance to get the quotes.
   </p>
 
 </page>
