@@ -23,16 +23,26 @@
   <title>Add Symbos</title>    
   
   <p>
-    You can add symbols by editing the ~/.config/indicator-stocks/symbols.conf file.
-    Add one symbol per line.
+    You can add symbols by editing the
+    <file>~/.config/indicator-stocks/symbols.conf</file> file.
   </p>
+
+  <note style="important">
+    <p>Add <em>one</em> symbol per line.</p>
+  </note>
   
+  <listing>
+    <title>Example</title>
+<code>
+AMD.DE
+INTC
+</code>
+  </listing>
+
   <p>
-  Example:
-  SAP.DE
+    In the above example <code>AMD.DE</code> is the symbol for
+    <em>Advanced Micro Devices, Inc. (Equity-XETRA)</em>.
+    <code>INTC</code> is the symbol for <em>Intel Corporation (Equity-NASDAQ)</em>.
   </p>
-  
-  <p>
-  SAP = SAP AG, DE = XETRA
-  </p>
+
 </page>
