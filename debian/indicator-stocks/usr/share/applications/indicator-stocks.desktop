@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Exec=indicator-stocks
-Name=indicator-stocks
-Comment=Simple stock quotes indicator
-Icon=indicator-stocks
-Categories=Utility;Application;
