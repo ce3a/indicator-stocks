@@ -1,3 +1,9 @@
+indicator-stocks (0.1.0-2) saucy; urgency=low
+
+  * Fixed help file installation.
+
+ -- Sergej Sawazki <sergej@duke>  Wed, 20 Nov 2013 22:51:56 +0100
+
 indicator-stocks (0.1.0-1) saucy; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
