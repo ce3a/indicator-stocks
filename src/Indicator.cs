@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Gtk;
 using AppIndicator;
+using Gdk;
+using Pango;
 
 namespace indicatorstocks
 {
@@ -12,7 +14,15 @@ namespace indicatorstocks
 		private ApplicationIndicator indicator;
 		private Menu menu;
 
-		private static readonly string symbolQuoteSeparator = "  \t";
+		private Screen screen = Screen.Default;
+		private Pango.Layout layout;
+
+		private readonly int spaceWidth;
+		private readonly char symbolPadChar = '\x2007';
+		private readonly string quoteUnknown = "???";
+		private static readonly string symbolQuoteSeparator = "\t";
+
+		private int maxWidth = 0;
 
 		private string[] symbols;
 		public  string[] Symbols
@@ -29,18 +39,25 @@ namespace indicatorstocks
 
 			menu = new Menu();
 
+			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
+			layout.FontDescription = new FontDescription();
+
+			spaceWidth = GetTextPixelLength(symbolPadChar.ToString());
+
 			foreach (string symbol in symbols)
 			{
-				MenuItem menuItem = new MenuItem(symbol + ": ???");
+				MenuItem menuItem = new MenuItem(symbol + ":" + quoteUnknown);
 				menuItem.Activated += userEventHandler.OnQuoteSelected;
 				menu.Append(menuItem);
+
+				maxWidth = Math.Max(maxWidth, GetTextPixelLength(symbol));
 			}
 
 			AddDefaultMenus(menu);
 			menu.ShowAll();
 
 			indicator.Menu   = menu;
-			indicator.Status = Status.Active;
+			indicator.Status = AppIndicator.Status.Active;
 		}
 
 		public void Update(float[] quotes)
@@ -53,9 +70,16 @@ namespace indicatorstocks
 				{
 					if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
 					{
+						// HACK:  symbol and quote aligmant based on string width in pexels.
+						// FIXME: Condider using Pango.Layout instead.
+						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString());
+						int nbrOfPadChars = (maxWidth - curWidth) / spaceWidth + symbolsEnum.Current.ToString().Length;
+
 						Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
-						label.Text = symbolsEnum.Current + symbolQuoteSeparator + 
-							(quote > 0 ? quote.ToString("0.00").PadLeft(6,'\x2007') : "???");
+						label.Text = 
+							symbolsEnum.Current.ToString().PadRight(nbrOfPadChars, symbolPadChar) + 
+								symbolQuoteSeparator + 
+							(quote > 0 ? quote.ToString("0.00").PadLeft(7, symbolPadChar) : quoteUnknown);
 					}
 				}
 		    });
@@ -95,6 +119,16 @@ namespace indicatorstocks
 			menu.Append(menuItemQuit);
 
 			return menu;
+		}
+
+		private int GetTextPixelLength(string text)
+		{
+			int width, height;
+
+		    layout.SetText(text);
+		    layout.GetPixelSize(out width, out height);
+
+			return width;
 		}
 	}
 }

@@ -82,10 +82,4 @@
   <ItemGroup>
     <Folder Include="src\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="help\C\add-symbols.page" />
-    <None Include="help\C\index.page" />
-    <None Include="help\C\introduction.page" />
-    <None Include="help\C\legal.xml" />
-  </ItemGroup>
 </Project>

@@ -45,4 +45,9 @@ INTC
     <code>INTC</code> is the symbol for <em>Intel Corporation (Equity-NASDAQ)</em>.
   </p>
 
+	<note>
+    <p>TODO: restart the application after editing the <file>symbols.conf</file> fife</p>
+    <p>TODO: ??? if no quote couldn't been fetched</p>
+  </note>
+
 </page>
