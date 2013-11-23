@@ -20,19 +20,27 @@
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
   </info>
 
-  <title>Add Symbos</title>    
+  <title>Add Stock Symbos</title>
   
   <p>
-    You can add symbols by editing the
-    <file>~/.config/indicator-stocks/symbols.conf</file> file.
+    You can add stock symbols by editing the <file>~/.config/indicator-stocks/symbols.conf</file> file.
+    Please note that you need to restart <app>indicator-stocks</app> after editing this file
+	for the changes to take effect.
   </p>
+
+  <note style="tip">
+    <p>
+      You can find the stock symbol for a company 
+      at <link href="http://finance.yahoo.com/">Yahoo Finance</link>.
+    </p>
+  </note>
 
   <note style="important">
     <p>Add <em>one</em> symbol per line.</p>
   </note>
   
   <listing>
-    <title>Example</title>
+    <title>Example: <file>~/.config/indicator-stocks/symbols.conf</file></title>
 <code>
 AMD.DE
 INTC
@@ -44,10 +52,5 @@ INTC
     <em>Advanced Micro Devices, Inc. (Equity-XETRA)</em>.
     <code>INTC</code> is the symbol for <em>Intel Corporation (Equity-NASDAQ)</em>.
   </p>
-
-	<note>
-    <p>TODO: restart the application after editing the <file>symbols.conf</file> fife</p>
-    <p>TODO: ??? if no quote couldn't been fetched</p>
-  </note>
 
 </page>
