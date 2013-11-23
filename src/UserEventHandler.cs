@@ -53,10 +53,18 @@ namespace indicatorstocks
 			dialog.Comments = (asm.GetCustomAttributes(
 				typeof (AssemblyDescriptionAttribute), false)[0]
 				as AssemblyDescriptionAttribute).Description;
+
+			dialog.Comments += String.Format("\n\nRevision: {0}", asm.GetName().Version.Revision);
 			
 			dialog.Copyright = (asm.GetCustomAttributes(
 				typeof (AssemblyCopyrightAttribute), false)[0]
 				as AssemblyCopyrightAttribute).Copyright;
+
+			dialog.LogoIconName = About.LogoIconName;
+
+			dialog.License = About.License;
+
+			dialog.Authors = About.Authors;
 
 			dialog.Response += delegate {
 				dialog.Destroy();

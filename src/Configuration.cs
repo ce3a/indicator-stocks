@@ -6,9 +6,9 @@ namespace indicatorstocks
 {
 	public class Configuration
 	{
-		private String path;
+		private string path;
 
-		public Configuration (String name)
+		public Configuration(string name)
 		{
 			path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
 			path += @"/" + name + @"/symbols.conf";
@@ -20,7 +20,7 @@ namespace indicatorstocks
 				using (File.Create(path));
 		}
 
-		public string[] GetSymbols ()
+		public string[] GetSymbols()
 		{
 			List<string> symbols = new List<string>();
 			string line;

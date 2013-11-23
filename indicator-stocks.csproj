@@ -66,6 +66,9 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="LICENSE.md">
+      <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="src\MainWindow.cs" />
     <Compile Include="src\UserEventHandler.cs" />
     <Compile Include="src\IndicatorStocks.cs" />
+    <Compile Include="src\About.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
