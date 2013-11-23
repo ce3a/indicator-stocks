@@ -18,8 +18,8 @@ namespace indicatorstocks
 		private Pango.Layout layout;
 
 		private readonly int spaceWidth;
-		private readonly char symbolPadChar = '\x2007';
-		private readonly string quoteUnknown = "???";
+		private static readonly string quoteUnknown = "???";
+		private static readonly char symbolPadChar = '\x2007';
 		private static readonly string symbolQuoteSeparator = "\t";
 
 		private int maxWidth = 0;
@@ -70,16 +70,16 @@ namespace indicatorstocks
 				{
 					if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
 					{
-						// HACK:  symbol and quote aligmant based on string width in pexels.
-						// FIXME: Condider using Pango.Layout instead.
+						// HACK:  symbol and quote aligmant based on string width in pixels.
+						// FIXME: Consider using Pango.Layout instead.
 						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString());
-						int nbrOfPadChars = (maxWidth - curWidth) / spaceWidth + symbolsEnum.Current.ToString().Length;
+						int nbrOfPadChars = (maxWidth - curWidth) / spaceWidth + symbolsEnum.Current.ToString().Length + 1;
 
 						Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
 						label.Text = 
 							symbolsEnum.Current.ToString().PadRight(nbrOfPadChars, symbolPadChar) + 
 								symbolQuoteSeparator + 
-							(quote > 0 ? quote.ToString("0.00").PadLeft(7, symbolPadChar) : quoteUnknown);
+							(quote > 0 ? quote.ToString("0.00").PadLeft(8, symbolPadChar) : quoteUnknown);
 					}
 				}
 		    });
@@ -88,7 +88,7 @@ namespace indicatorstocks
 		public static string GetSymbolFromMenuItem(MenuItem menuItem)
 		{
 			string symbol = ((Label)menuItem.Child).Text;
-			return symbol.Substring(0, symbol.IndexOf(symbolQuoteSeparator));
+			return symbol.Substring(0, symbol.IndexOf(symbolPadChar));
 		}
 
 		private Menu AddDefaultMenus(Menu menu)

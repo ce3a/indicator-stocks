@@ -3,6 +3,7 @@ using System.Net;
 using System.IO;
 using System.Text;
 using System.Collections;
+using System.Globalization;
 
 namespace Yahoo.Finance
 {
@@ -30,7 +31,10 @@ namespace Yahoo.Finance
 					StreamReader strm = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
 
 					for (int i = 0; i < quotes.Length; i++)
-						float.TryParse(strm.ReadLine().Replace(".",","), out quotes[i]);
+						float.TryParse(strm.ReadLine(), 
+						               NumberStyles.AllowDecimalPoint, 
+						               CultureInfo.InvariantCulture, 
+						               out quotes[i]);
 				}
 			}
 			catch (WebException ex)
