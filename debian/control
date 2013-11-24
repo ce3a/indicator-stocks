@@ -10,6 +10,6 @@ Vcs-Browser: https://github.com/ce3a/indicator-stocks
 
 Package: indicator-stocks
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, mono-runtime
+Depends: ${shlibs:Depends}, ${misc:Depends}, mono-runtime, libappindicator0.1-cil
 Description: A simple ubuntu unity stocks indicator
  <insert long description, indented with spaces>
