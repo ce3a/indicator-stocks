@@ -66,6 +66,8 @@ namespace indicatorstocks
 
 			dialog.Authors = About.Authors;
 
+			dialog.Artists = About.Artists;
+
 			dialog.Response += delegate {
 				dialog.Destroy();
 			};
