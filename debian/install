@@ -1,5 +1,5 @@
 bin/Release/indicator-stocks.exe usr/lib/indicator-stocks
 indicator-stocks usr/bin
 indicator-stocks.desktop usr/share/applications
-icons/* /usr/share/icons
+icons/* usr/share/icons
 help/* usr/share/gnome/help/indicator-stocks

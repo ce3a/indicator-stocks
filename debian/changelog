@@ -3,7 +3,7 @@ indicator-stocks (0.1.2-0ubuntu2) saucy; urgency=low
   * Fixed package dependency issue (libappindicator0.1-cil).
   * Added mono-dark and mono-light icons, thanks to Agmenor.
 
- -- Sergej Sawazki <sergej@duke>  Sun, 24 Nov 2013 22:26:58 +0100
+ -- Sergej Sawazki <ce3a@gmx.de>  Sun, 24 Nov 2013 22:26:58 +0100
 
 indicator-stocks (0.1.2-0ubuntu1) saucy; urgency=low
 
@@ -11,13 +11,13 @@ indicator-stocks (0.1.2-0ubuntu1) saucy; urgency=low
   * Fixed float parsing.
   * Added some more information to the "Add Stock Symbols" help page.
 
- -- Sergej Sawazki <sergej@tron>  Sat, 23 Nov 2013 14:30:08 +0100
+ -- Sergej Sawazki <ce3a@gmx.de>  Sat, 23 Nov 2013 14:30:08 +0100
 
 indicator-stocks (0.1.0-2) saucy; urgency=low
 
   * Fixed help file installation.
 
- -- Sergej Sawazki <sergej@duke>  Wed, 20 Nov 2013 22:51:56 +0100
+ -- Sergej Sawazki <ce3a@gmx.de>  Wed, 20 Nov 2013 22:51:56 +0100
 
 indicator-stocks (0.1.0-1) saucy; urgency=low
 
