@@ -1,0 +1,36 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="topic" style="task"
+      id="reporting-bugs">
+
+  <info>
+    <link type="guide" xref="index#dev"/>
+    <desc>Tell your problem.</desc>
+    <revision pkgversion="3.0" version="0.1" date="2013-11-24" status="candidate"/>
+    <credit type="author">
+      <name>Sergej Sawazki</name>
+      <email>ce3a@gmx.de</email>
+    </credit>    
+<!--
+    <copyright>
+      <year>2013</year>
+      <name>Sergej Sawazki</name>
+    </copyright>
+-->
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+  </info>
+
+  <title>Reporting Bugs</title>    
+  
+  <p>
+    <app>indicator-stocks</app> bugs are tracked using 
+    <link href="https://github.com/ce3a/indicator-stocks/issues">GitHub</link>.
+  </p>
+      
+  <note style="important">
+    <p>Please include the output of
+    <code>mono --version</code> and
+    <code>apt-cache policy indicator-stocks</code>
+    in your bug description.</p>
+  </note>
+</page>

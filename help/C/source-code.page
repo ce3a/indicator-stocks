@@ -4,8 +4,8 @@
       id="source-code">
 
   <info>
-    <link type="guide" xref="index#code"/>
-    <desc>Find the sources</desc>
+    <link type="guide" xref="index#dev"/>
+    <desc>Find the sources.</desc>
     <revision pkgversion="3.0" version="0.1" date="2013-11-19" status="candidate"/>
     <credit type="author">
       <name>Sergej Sawazki</name>
@@ -23,7 +23,8 @@
   <title>Source Code</title>    
   
   <p>
-    <app>indicator-stocks</app> sources can be found on <link href="https://github.com/ce3a/indicator-stocks">GitHub</link>.
+    <app>indicator-stocks</app> sources can be found on 
+    <link href="https://github.com/ce3a/indicator-stocks">GitHub</link>.
   </p>
 
 </page>
