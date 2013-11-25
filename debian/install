@@ -1,5 +1,5 @@
 bin/Release/indicator-stocks.exe usr/lib/indicator-stocks
 indicator-stocks usr/bin
 indicator-stocks.desktop usr/share/applications
-icons/scalable/indicator-stocks.svg /usr/share/icons/hicolor/scalable/status
-help/C usr/share/gnome/help/indicator-stocks
+icons/* /usr/share/icons
+help/* usr/share/gnome/help/indicator-stocks

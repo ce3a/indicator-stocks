@@ -4,3 +4,7 @@ notes.txt~
 .pc
 obj
 notes.txt
+*.debhelper
+*.log
+debian/indicator-stocks*
+debian/files

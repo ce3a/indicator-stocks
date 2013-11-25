@@ -11,6 +11,12 @@ namespace indicatorstocks
 			"Sergej Sawazki",
 		};
 
+		private static readonly string[] artists = 
+		{
+			"Sergej Sawazki",
+			"Agmenor"
+		};
+
 		private static readonly string logoIconName = "indicator-stocks";
 
 		public static string[] Authors
@@ -18,6 +24,9 @@ namespace indicatorstocks
 			get {return authors;}
 		}
 
+		public static string[] Artists {
+			get {return artists;}
+		}
 		public static string LogoIconName
 		{
 			get {return logoIconName;}
