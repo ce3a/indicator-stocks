@@ -2,9 +2,10 @@ using System;
 using System.Reflection;
 using System.Diagnostics;
 using Gtk;
-using Yahoo.Finance;
 using System.Runtime.InteropServices;
 using System.IO;
+
+using ce3a.Yahoo.Finance;
 
 namespace indicatorstocks
 {

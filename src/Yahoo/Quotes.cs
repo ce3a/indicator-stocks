@@ -4,8 +4,9 @@ using System.IO;
 using System.Text;
 using System.Collections;
 using System.Globalization;
+using ce3a.Logging;
 
-namespace Yahoo.Finance
+namespace ce3a.Yahoo.Finance
 {
 	public class Quotes
 	{
@@ -15,6 +16,8 @@ namespace Yahoo.Finance
 
 		public static float[] GetQuotes(string[] symbols, string format)
 		{
+			ILogger logger = LogManager.Logger;
+
 			float[] quotes = new float[symbols.Length];
 
 			string url = @"http://finance.yahoo.com/d/quotes.csv?s=";
@@ -24,14 +27,18 @@ namespace Yahoo.Finance
 
 			try
 			{
+				logger.LogInfo(String.Format("{0}: \"{1}\"", "Sending HTTP request", url));
 				HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
 
 				using (HttpWebResponse rsp = (HttpWebResponse)req.GetResponse())
 				{
-					StreamReader strm = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII);
+					String csv = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII).ReadToEnd();
+					logger.LogInfo(String.Format("{0}:\n{1}","HTTP response", csv));
+
+					StringReader stringReader = new StringReader(csv);
 
 					for (int i = 0; i < quotes.Length; i++)
-						float.TryParse(strm.ReadLine(), 
+						float.TryParse(stringReader.ReadLine(), 
 						               NumberStyles.AllowDecimalPoint, 
 						               CultureInfo.InvariantCulture, 
 						               out quotes[i]);
@@ -39,7 +46,7 @@ namespace Yahoo.Finance
 			}
 			catch (WebException ex)
 			{
-				Console.WriteLine(ex.Message);
+				logger.LogError(ex.Message);
 			}
 
 			return quotes;

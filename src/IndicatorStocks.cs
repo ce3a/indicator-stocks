@@ -3,7 +3,8 @@ using Gtk;
 using System.Threading;
 using System.Collections.Generic;
 using System.Timers;
-using Yahoo.Finance;
+using ce3a.Yahoo.Finance;
+using ce3a.Logging;
 
 namespace indicatorstocks
 {
@@ -16,8 +17,18 @@ namespace indicatorstocks
 		private static readonly int time = 30000;
 		private static readonly string name = "indicator-stocks";
 
-		public static void Main (string[] args)
+		private static ILogger logger;
+
+		public static void Main(string[] args)
 		{
+			logger = LogManager.Logger;
+
+			// TODO: implement command line arguments parser!
+			if (args.Length > 0) 
+				if (args.Length > 0 && args[0] == "-v")
+					logger.Verbose = true;
+
+			logger.LogInfo("Calling Application.Init()");
 			Application.Init();
 
 			configuration = new Configuration(name);
@@ -30,9 +41,11 @@ namespace indicatorstocks
 			timer.Enabled = true;
 			timer.AutoReset = true;
 
+			logger.LogInfo("Calling Application.Run()");
 			Application.Run();
 
 			timer.Dispose();
+			logger.LogInfo("Exiting...");
 		}
 
 		private static void DoWork()

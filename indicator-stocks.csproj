@@ -81,9 +81,13 @@
     <Compile Include="src\UserEventHandler.cs" />
     <Compile Include="src\IndicatorStocks.cs" />
     <Compile Include="src\About.cs" />
+    <Compile Include="src\Logging\ILogger.cs" />
+    <Compile Include="src\Logging\Logger.cs" />
+    <Compile Include="src\Logging\LogManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="src\" />
+    <Folder Include="src\Logging\" />
   </ItemGroup>
 </Project>
