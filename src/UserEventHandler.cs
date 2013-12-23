@@ -15,6 +15,13 @@ namespace indicatorstocks
 		{
 		}
 
+		public void OnPrefs(object sender, EventArgs args)
+		{
+			PreferencesDialog preferencesDialog = new PreferencesDialog();
+
+			preferencesDialog.Run();
+		}
+
 		[DllImport ("glib-2.0.dll")]
 		static extern IntPtr g_get_language_names ();
 

@@ -72,18 +72,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="src\Yahoo\Quotes.cs" />
     <Compile Include="src\AssemblyInfo.cs" />
     <Compile Include="src\Configuration.cs" />
     <Compile Include="src\Indicator.cs" />
-    <Compile Include="src\MainWindow.cs" />
     <Compile Include="src\UserEventHandler.cs" />
     <Compile Include="src\IndicatorStocks.cs" />
     <Compile Include="src\About.cs" />
     <Compile Include="src\Logging\ILogger.cs" />
     <Compile Include="src\Logging\Logger.cs" />
     <Compile Include="src\Logging\LogManager.cs" />
+    <Compile Include="gtk-gui\indicatorstocks.PreferencesDialog.cs" />
+    <Compile Include="src\PreferencesDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
