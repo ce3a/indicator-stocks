@@ -12,6 +12,7 @@ namespace indicatorstocks
 		private global::Gtk.Button buttonAddSymbol;
 		private global::Gtk.Button buttonDeleteSymbol;
 		private global::Gtk.Label label1;
+		private global::Gtk.Label label2;
 		private global::Gtk.Button buttonOk;
 		
 		protected virtual void Build ()
@@ -48,6 +49,7 @@ namespace indicatorstocks
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.hbuttonbox3 = new global::Gtk.HButtonBox ();
 			this.hbuttonbox3.Name = "hbuttonbox3";
+			this.hbuttonbox3.Spacing = 10;
 			this.hbuttonbox3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
 			// Container child hbuttonbox3.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonAddSymbol = new global::Gtk.Button ();
@@ -112,15 +114,24 @@ namespace indicatorstocks
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Symbols");
 			this.notebook1.SetTabLabel (this.vbox3, this.label1);
 			this.label1.ShowAll ();
+			// Notebook tab
+			global::Gtk.Label w24 = new global::Gtk.Label ();
+			w24.Visible = true;
+			this.notebook1.Add (w24);
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Server");
+			this.notebook1.SetTabLabel (w24, this.label2);
+			this.label2.ShowAll ();
 			w1.Add (this.notebook1);
-			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
-			w24.Position = 0;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(w1 [this.notebook1]));
+			w25.Position = 0;
 			// Internal child indicatorstocks.PreferencesDialog.ActionArea
-			global::Gtk.HButtonBox w25 = this.ActionArea;
-			w25.Name = "dialog1_ActionArea";
-			w25.Spacing = 10;
-			w25.BorderWidth = ((uint)(5));
-			w25.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w26 = this.ActionArea;
+			w26.Name = "dialog1_ActionArea";
+			w26.Spacing = 10;
+			w26.BorderWidth = ((uint)(5));
+			w26.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -130,13 +141,13 @@ namespace indicatorstocks
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-close";
 			this.AddActionWidget (this.buttonOk, -7);
-			global::Gtk.ButtonBox.ButtonBoxChild w26 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w25 [this.buttonOk]));
-			w26.Expand = false;
-			w26.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w27 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w26 [this.buttonOk]));
+			w27.Expand = false;
+			w27.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 234;
+			this.DefaultWidth = 244;
 			this.DefaultHeight = 375;
 			this.Show ();
 		}

@@ -6,9 +6,13 @@ namespace indicatorstocks
 {
 	public class Configuration
 	{
+		public static readonly Configuration Instance = new Configuration();
+
 		private string path;
 
-		public Configuration(string name)
+		private Configuration(){}
+
+		public void Init(string name)
 		{
 			path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
 			path += @"/" + name + @"/symbols.conf";
@@ -33,5 +37,12 @@ namespace indicatorstocks
 
 			return symbols.ToArray();
 		}
+
+		public void SetSymbols(string[] symbols)
+		{
+
+		}
+
+
 	}
 }

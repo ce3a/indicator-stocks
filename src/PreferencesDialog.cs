@@ -2,7 +2,6 @@ using System;
 
 namespace indicatorstocks
 {
-
 	[Gtk.TreeNode (ListOnly=true)]
 	public class SymbolsNode : Gtk.TreeNode {
 
@@ -23,6 +22,7 @@ namespace indicatorstocks
 
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
+		private static Configuration configuration = Configuration.Instance;
 
 		public PreferencesDialog()
 		{
@@ -35,6 +35,9 @@ namespace indicatorstocks
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
 			nodeviewSymbols.ShowAll();
 
+			foreach (string s in configuration.GetSymbols())
+				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
+
 			buttonOk.Clicked += OnClickedOk;
 			buttonAddSymbol.Clicked += OnClickedAddSymbol;
 			buttonDeleteSymbol.Clicked += OnClickedDeleteSymbol;
@@ -45,11 +48,9 @@ namespace indicatorstocks
 			this.Destroy();
 		}
 
-		int i = 0;
-
 		private void OnClickedAddSymbol(object sender, EventArgs args)
 		{
-			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode("hihi" + i++));
+			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode("hihi"));
 		}
 
 		private void OnClickedDeleteSymbol(object sender, EventArgs args)

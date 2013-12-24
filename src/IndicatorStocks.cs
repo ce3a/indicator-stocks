@@ -12,7 +12,7 @@ namespace indicatorstocks
 	{
 		private static Indicator indicator;
 		private static System.Timers.Timer timer;
-		private static Configuration configuration;
+		private static Configuration configuration = Configuration.Instance;
 
 		private static readonly int time = 30000;
 		private static readonly string name = "indicator-stocks";
@@ -31,7 +31,7 @@ namespace indicatorstocks
 			logger.LogInfo("Calling Application.Init()");
 			Application.Init();
 
-			configuration = new Configuration(name);
+			configuration.Init(name);
 			indicator = new Indicator(name, new UserEventHandler(), configuration.GetSymbols());
 
 			DoWork();
