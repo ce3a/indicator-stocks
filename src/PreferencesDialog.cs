@@ -2,6 +2,25 @@ using System;
 
 namespace indicatorstocks
 {
+
+	[Gtk.TreeNode (ListOnly=true)]
+	public class SymbolsNode : Gtk.TreeNode {
+
+        private string symbol;
+
+        public SymbolsNode (string symbol)
+        {
+			this.symbol = symbol;
+        }
+
+	    [Gtk.TreeNodeValue (Column=0)]
+		public string Symbol
+		{
+			get {return symbol;}
+		}
+
+	}
+
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
 
@@ -10,26 +29,33 @@ namespace indicatorstocks
 			this.Build();
 
 			// TODO: set Title
+			// TODO: use Catalog for titles
 
-			buttonCancel.Clicked += OnClickedCancel;
-			buttonOk.Clicked += OnClickedOk;
-
-									
+			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
-			nodeviewSymbols.AppendColumn("Song Title", new Gtk.CellRendererText (), "text", 1);
 			nodeviewSymbols.ShowAll();
 
-
-		}
-
-		private void OnClickedCancel(object sender, EventArgs args)
-		{
-			this.Destroy();
+			buttonOk.Clicked += OnClickedOk;
+			buttonAddSymbol.Clicked += OnClickedAddSymbol;
+			buttonDeleteSymbol.Clicked += OnClickedDeleteSymbol;
 		}
 
 		private void OnClickedOk(object sender, EventArgs args)
 		{
 			this.Destroy();
+		}
+
+		int i = 0;
+
+		private void OnClickedAddSymbol(object sender, EventArgs args)
+		{
+			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode("hihi" + i++));
+		}
+
+		private void OnClickedDeleteSymbol(object sender, EventArgs args)
+		{
+			SymbolsNode node = (SymbolsNode)nodeviewSymbols.NodeSelection.SelectedNode;
+			nodeviewSymbols.NodeStore.RemoveNode(node);
 		}
 	}
 }
