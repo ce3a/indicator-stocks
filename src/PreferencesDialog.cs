@@ -31,12 +31,23 @@ namespace indicatorstocks
 			// TODO: set Title
 			// TODO: use Catalog for titles
 
+			notebook1.CurrentPage = 0;
+
 			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
 			nodeviewSymbols.ShowAll();
 
 			foreach (string s in configuration.GetSymbols())
 				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
+
+			buttonAddSymbol.Sensitive = false;
+			buttonDeleteSymbol.Sensitive = false;
+
+			entryNewSymbol.FocusInEvent += OnEntrySelected; 
+			entryNewSymbol.TextInserted += OnEntryTextChanged;
+			entryNewSymbol.TextDeleted += OnEntryTextChanged;
+
+			nodeviewSymbols.CursorChanged += OnSymbolSelected;
 
 			buttonOk.Clicked += OnClickedOk;
 			buttonAddSymbol.Clicked += OnClickedAddSymbol;
@@ -50,13 +61,33 @@ namespace indicatorstocks
 
 		private void OnClickedAddSymbol(object sender, EventArgs args)
 		{
-			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode("hihi"));
+			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(entryNewSymbol.Text));
+			entryNewSymbol.Text = "";
 		}
 
 		private void OnClickedDeleteSymbol(object sender, EventArgs args)
 		{
 			SymbolsNode node = (SymbolsNode)nodeviewSymbols.NodeSelection.SelectedNode;
 			nodeviewSymbols.NodeStore.RemoveNode(node);
+			buttonDeleteSymbol.Sensitive = false;
+		}
+
+		private void OnEntrySelected(object sender, EventArgs args)
+		{
+			entryNewSymbol.Text = "";
+		}
+
+		private void OnEntryTextChanged(object sender, EventArgs args)
+		{
+			if (entryNewSymbol.Text.Length > 0)
+				buttonAddSymbol.Sensitive = true;
+			else
+				buttonAddSymbol.Sensitive = false;
+		}
+
+		private void OnSymbolSelected(object sender, EventArgs args)
+		{
+			buttonDeleteSymbol.Sensitive = true;
 		}
 	}
 }
