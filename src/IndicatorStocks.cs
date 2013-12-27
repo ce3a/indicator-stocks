@@ -54,7 +54,7 @@ namespace indicatorstocks
 			indicator.Update(quotes);
 		}
 
-		private static void OnTimer (object sender, ElapsedEventArgs e)
+		private static void OnTimer(object sender, ElapsedEventArgs e)
 		{
 			DoWork();
 
