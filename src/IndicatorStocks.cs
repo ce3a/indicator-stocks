@@ -12,9 +12,8 @@ namespace indicatorstocks
 	{
 		private static Indicator indicator;
 		private static System.Timers.Timer timer;
-		private static Configuration configuration = Configuration.Instance;
+		private static Configuration config = Configuration.Instance;
 
-		private static readonly int time = 30000;
 		private static readonly string name = "indicator-stocks";
 
 		private static ILogger logger;
@@ -31,12 +30,12 @@ namespace indicatorstocks
 			logger.LogInfo("Calling Application.Init()");
 			Application.Init();
 
-			configuration.Init(name);
-			indicator = new Indicator(name, new UserEventHandler(), configuration.GetSymbols());
+			config.Init(name);
+			indicator = new Indicator(name, new UserEventHandler(), config.GetSymbols());
 
 			DoWork();
 
-			timer = new System.Timers.Timer(time);
+			timer = new System.Timers.Timer(config.UpdateInterval * 1000);
 			timer.Elapsed += new ElapsedEventHandler(OnTimer);
 			timer.Enabled = true;
 			timer.AutoReset = true;
@@ -57,7 +56,9 @@ namespace indicatorstocks
 
 		private static void OnTimer (object sender, ElapsedEventArgs e)
 		{
-			DoWork();		
+			DoWork();
+
+			timer.Interval = config.UpdateInterval * 1000;
 		}
 	}
 }

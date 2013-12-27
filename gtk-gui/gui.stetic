@@ -7,11 +7,12 @@
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="appindicator-sharp, Version=0.2.0.0, Culture=neutral, PublicKeyToken=bcae265d1c7ab4c2" />
-    <widget-library name="../bin/Release/indicator-stocks.exe" internal="true" />
+    <widget-library name="../bin/Debug/indicator-stocks.exe" internal="true" />
   </import>
   <widget class="Gtk.Dialog" id="indicatorstocks.PreferencesDialog" design-size="265 375">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
+    <property name="DestroyWithParent">True</property>
     <property name="Buttons">1</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">
@@ -22,7 +23,7 @@
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">0</property>
+            <property name="CurrentPage">1</property>
             <child>
               <widget class="Gtk.VBox" id="vbox3">
                 <property name="MemberName" />
@@ -125,7 +126,7 @@
                     <child>
                       <widget class="Gtk.Label" id="label4">
                         <property name="MemberName" />
-                        <property name="LabelProp" translatable="yes">Update interval:</property>
+                        <property name="LabelProp" translatable="yes">Update Interval:</property>
                       </widget>
                       <packing>
                         <property name="Position">0</property>
@@ -135,7 +136,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.SpinButton" id="spinbutton2">
+                      <widget class="Gtk.SpinButton" id="updateIntervalSpinButton">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="Lower">1</property>
@@ -145,6 +146,7 @@
                         <property name="ClimbRate">1</property>
                         <property name="Numeric">True</property>
                         <property name="Value">30</property>
+                        <signal name="ValueChanged" handler="OnUpdateIntervalSpinButtonValueChanged" />
                       </widget>
                       <packing>
                         <property name="Position">1</property>

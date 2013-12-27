@@ -11,6 +11,8 @@ namespace indicatorstocks
 {
 	public class UserEventHandler
 	{
+		private Configuration config = Configuration.Instance;
+
 		public UserEventHandler()
 		{
 		}
@@ -20,6 +22,8 @@ namespace indicatorstocks
 			PreferencesDialog preferencesDialog = new PreferencesDialog();
 
 			preferencesDialog.Run();
+			preferencesDialog.Destroy();
+			config.Save();
 		}
 
 		[DllImport ("glib-2.0.dll")]

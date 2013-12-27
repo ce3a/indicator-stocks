@@ -16,7 +16,7 @@ namespace indicatorstocks
 		private global::Gtk.VBox vbox4;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Label label4;
-		private global::Gtk.SpinButton spinbutton2;
+		private global::Gtk.SpinButton updateIntervalSpinButton;
 		private global::Gtk.Label label3;
 		private global::Gtk.Label label2;
 		private global::Gtk.Button buttonOk;
@@ -27,6 +27,7 @@ namespace indicatorstocks
 			// Widget indicatorstocks.PreferencesDialog
 			this.Name = "indicatorstocks.PreferencesDialog";
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.DestroyWithParent = true;
 			// Internal child indicatorstocks.PreferencesDialog.VBox
 			global::Gtk.VBox w1 = this.VBox;
 			w1.Name = "dialog1_VBox";
@@ -35,7 +36,7 @@ namespace indicatorstocks
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 1;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
@@ -144,22 +145,22 @@ namespace indicatorstocks
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.label4 = new global::Gtk.Label ();
 			this.label4.Name = "label4";
-			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Update interval:");
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Update Interval:");
 			this.hbox1.Add (this.label4);
 			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label4]));
 			w25.Position = 0;
 			w25.Expand = false;
 			w25.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.spinbutton2 = new global::Gtk.SpinButton (1, 10000, 10);
-			this.spinbutton2.CanFocus = true;
-			this.spinbutton2.Name = "spinbutton2";
-			this.spinbutton2.Adjustment.PageIncrement = 10;
-			this.spinbutton2.ClimbRate = 1;
-			this.spinbutton2.Numeric = true;
-			this.spinbutton2.Value = 30;
-			this.hbox1.Add (this.spinbutton2);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.spinbutton2]));
+			this.updateIntervalSpinButton = new global::Gtk.SpinButton (1, 10000, 10);
+			this.updateIntervalSpinButton.CanFocus = true;
+			this.updateIntervalSpinButton.Name = "updateIntervalSpinButton";
+			this.updateIntervalSpinButton.Adjustment.PageIncrement = 10;
+			this.updateIntervalSpinButton.ClimbRate = 1;
+			this.updateIntervalSpinButton.Numeric = true;
+			this.updateIntervalSpinButton.Value = 30;
+			this.hbox1.Add (this.updateIntervalSpinButton);
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.updateIntervalSpinButton]));
 			w26.Position = 1;
 			w26.Expand = false;
 			w26.Fill = false;
@@ -213,6 +214,7 @@ namespace indicatorstocks
 			this.DefaultWidth = 265;
 			this.DefaultHeight = 375;
 			this.Show ();
+			this.updateIntervalSpinButton.ValueChanged += new global::System.EventHandler (this.OnUpdateIntervalSpinButtonValueChanged);
 		}
 	}
 }

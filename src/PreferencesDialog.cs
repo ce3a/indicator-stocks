@@ -22,7 +22,7 @@ namespace indicatorstocks
 
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
-		private static Configuration configuration = Configuration.Instance;
+		private static Configuration config = Configuration.Instance;
 
 		public PreferencesDialog()
 		{
@@ -33,16 +33,20 @@ namespace indicatorstocks
 
 			notebook1.CurrentPage = 0;
 
+			updateIntervalSpinButton.Value = config.UpdateInterval;
+
 			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
 			nodeviewSymbols.ShowAll();
 
-			foreach (string s in configuration.GetSymbols())
+			foreach (string s in config.GetSymbols())
 				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
 
 			buttonAddSymbol.Sensitive = false;
 			buttonDeleteSymbol.Sensitive = false;
 
+
+			// TODO: define events using GUI designer
 			entryNewSymbol.FocusInEvent += OnEntrySelected; 
 			entryNewSymbol.TextInserted += OnEntryTextChanged;
 			entryNewSymbol.TextDeleted += OnEntryTextChanged;
@@ -61,6 +65,7 @@ namespace indicatorstocks
 
 		private void OnClickedAddSymbol(object sender, EventArgs args)
 		{
+			config.AddSymbols(new string[]{entryNewSymbol.Text});
 			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(entryNewSymbol.Text));
 			entryNewSymbol.Text = "";
 		}
@@ -68,6 +73,8 @@ namespace indicatorstocks
 		private void OnClickedDeleteSymbol(object sender, EventArgs args)
 		{
 			SymbolsNode node = (SymbolsNode)nodeviewSymbols.NodeSelection.SelectedNode;
+
+			config.RemoveSymbols(new string[]{node.Symbol});
 			nodeviewSymbols.NodeStore.RemoveNode(node);
 			buttonDeleteSymbol.Sensitive = false;
 		}
@@ -88,6 +95,11 @@ namespace indicatorstocks
 		private void OnSymbolSelected(object sender, EventArgs args)
 		{
 			buttonDeleteSymbol.Sensitive = true;
+		}
+
+		protected void OnUpdateIntervalSpinButtonValueChanged(object sender, EventArgs e)
+		{
+			config.UpdateInterval = ((Gtk.SpinButton)sender).ValueAsInt;
 		}
 	}
 }

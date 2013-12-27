@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace indicatorstocks
 {
@@ -18,35 +19,47 @@ namespace indicatorstocks
 
 		private Configuration(){}
 
-		public void Init(string appName)
+		public void Init (string appName)
 		{
-			oldPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
-			oldPath += @"/" + appName + @"/symbols.conf";
-		
-			// new concept..
-			filePath += Path.Combine(new string[]{folderPath, appName, fileName});
+			filePath += Path.Combine (new string[]{folderPath, appName, fileName});
 
-			if (!Directory.Exists(Path.GetDirectoryName(filePath)))
-				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+			if (!Directory.Exists (Path.GetDirectoryName (filePath)))
+				Directory.CreateDirectory (Path.GetDirectoryName (filePath));
 
-			if (!File.Exists(filePath))
-			{
-				using (FileStream fs = File.Create(filePath))
-				{
-					GetDefaultConfDoc().Save(fs);
+			if (!File.Exists (filePath)) {
+				using (FileStream fs = File.Create(filePath)) {
+					GetDefaultConfDoc ().Save (fs);
 
 					using (StreamWriter sw = new StreamWriter(fs))
-						sw.WriteLine(); // HACK: add an empty line at the end of the file
+						sw.WriteLine (); // HACK: add an empty line at the end of the file
 				}
 			}
 
-			confDoc = XDocument.Load(filePath);
+			confDoc = XDocument.Load (filePath);
+
+			#region read symbols from symbols.conf (LEGACY)
+			oldPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
+			oldPath += @"/" + appName + @"/symbols.conf";
+
+			if (File.Exists(oldPath))
+			{
+				AddSymbols(GetSymbolsOld());
+				Save();
+				File.Move(oldPath, oldPath + ".back");
+			}
+			#endregion
+		}
+
+		public void Save()
+		{
+			using (FileStream fs = File.Create(filePath))
+				confDoc.Save(fs);
 		}
 
 		#region LEGACY
 		private string oldPath;
 
-		public string[] GetSymbols()
+		public string[] GetSymbolsOld()
 		{
 			List<string> symbols = new List<string>();
 			string line;
@@ -61,16 +74,44 @@ namespace indicatorstocks
 		}
 		#endregion
 
-//		public void SetSymbols(string[] symbols)
-//		{
-//
-//		}
+		public void AddSymbols(string[] symbols)
+		{
+			foreach (string s in symbols)
+				confDoc.Root.Element("Stocks").Add(new XElement("Stock", new XElement("Symbol", s)));
+		}
+
+		public void RemoveSymbols(string[] symbols)
+		{
+			foreach (string s in symbols)
+				foreach (XElement element in confDoc.Root.Element("Stocks").Descendants("Stock"))
+					if (element.Element("Symbol").Value == s)
+						element.Remove();
+		}
+
+		public string[] GetSymbols()
+		{
+			List<string> symbols = new List<string> ();
+
+			foreach (XElement element in confDoc.Root.Element("Stocks").Descendants("Stock"))
+				symbols.Add(element.Element("Symbol").Value);
+
+			return symbols.ToArray();
+		}
 
 		public int UpdateInterval
 		{
-			get {return Int32.Parse(confDoc.Root.Element("Settings").Element("UpdateInterval").Value);}
+			get
+			{
+				return Int32.Parse(
+					confDoc.Root.Element("Settings").Element("UpdateInterval").Value
+				);
+			}
 
-			set {confDoc.Root.Element("Settings").Element("UpdateInterval").Value = String.Format("{0}", value);}
+			set
+			{
+				confDoc.Root.Element("Settings").Element("UpdateInterval").Value = 
+					String.Format("{0}", value);
+			}
 		}
 
 		private XDocument GetDefaultConfDoc()
