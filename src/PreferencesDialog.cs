@@ -58,6 +58,11 @@ namespace indicatorstocks
 			buttonDeleteSymbol.Clicked += OnClickedDeleteSymbol;
 		}
 
+		~PreferencesDialog()
+		{
+			config.Save();
+		}
+
 		private void OnClickedOk(object sender, EventArgs args)
 		{
 			this.Destroy();

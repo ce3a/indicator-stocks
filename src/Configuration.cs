@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using System.Linq;
 
 namespace indicatorstocks
 {
@@ -19,9 +18,9 @@ namespace indicatorstocks
 
 		private Configuration(){}
 
-		public void Init (string appName)
+		public void Init(string appName)
 		{
-			filePath += Path.Combine (new string[]{folderPath, appName, fileName});
+			filePath += Path.Combine(new string[]{folderPath, appName, fileName});
 
 			if (!Directory.Exists (Path.GetDirectoryName (filePath)))
 				Directory.CreateDirectory (Path.GetDirectoryName (filePath));
@@ -38,14 +37,25 @@ namespace indicatorstocks
 			confDoc = XDocument.Load (filePath);
 
 			#region read symbols from symbols.conf (LEGACY)
-			oldPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
+			// TODO: remove this region in one of the following releases
+			string oldPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
 			oldPath += @"/" + appName + @"/symbols.conf";
 
 			if (File.Exists(oldPath))
 			{
-				AddSymbols(GetSymbolsOld());
+				List<string> symbols = new List<string>();
+				string line;
+
+				using (StreamReader reader = new StreamReader(oldPath)) 
+				{
+				    while ((line = reader.ReadLine()) != null) 
+				        symbols.Add(line);
+				}
+
+				AddSymbols(symbols.ToArray());
 				Save();
-				File.Move(oldPath, oldPath + ".back");
+
+				try { File.Move(oldPath, oldPath + ".back"); } catch {}
 			}
 			#endregion
 		}
@@ -55,24 +65,6 @@ namespace indicatorstocks
 			using (FileStream fs = File.Create(filePath))
 				confDoc.Save(fs);
 		}
-
-		#region LEGACY
-		private string oldPath;
-
-		public string[] GetSymbolsOld()
-		{
-			List<string> symbols = new List<string>();
-			string line;
-
-			using (StreamReader reader = new StreamReader(oldPath)) 
-			{
-			    while ((line = reader.ReadLine()) != null) 
-			        symbols.Add(line);
-			}
-
-			return symbols.ToArray();
-		}
-		#endregion
 
 		public void AddSymbols(string[] symbols)
 		{
@@ -100,18 +92,8 @@ namespace indicatorstocks
 
 		public int UpdateInterval
 		{
-			get
-			{
-				return Int32.Parse(
-					confDoc.Root.Element("Settings").Element("UpdateInterval").Value
-				);
-			}
-
-			set
-			{
-				confDoc.Root.Element("Settings").Element("UpdateInterval").Value = 
-					String.Format("{0}", value);
-			}
+			get	{ return Int32.Parse(confDoc.Root.Element("Settings").Element("UpdateInterval").Value); }
+			set	{ confDoc.Root.Element("Settings").Element("UpdateInterval").Value = String.Format("{0}", value); }
 		}
 
 		private XDocument GetDefaultConfDoc()

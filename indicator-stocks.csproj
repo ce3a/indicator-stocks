@@ -77,7 +77,6 @@
     <Compile Include="src\AssemblyInfo.cs" />
     <Compile Include="src\Configuration.cs" />
     <Compile Include="src\Indicator.cs" />
-    <Compile Include="src\UserEventHandler.cs" />
     <Compile Include="src\IndicatorStocks.cs" />
     <Compile Include="src\About.cs" />
     <Compile Include="src\Logging\ILogger.cs" />
