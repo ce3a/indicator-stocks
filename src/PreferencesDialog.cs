@@ -3,8 +3,8 @@ using System;
 namespace indicatorstocks
 {
 	[Gtk.TreeNode (ListOnly=true)]
-	public class SymbolsNode : Gtk.TreeNode {
-
+	public class SymbolsNode : Gtk.TreeNode 
+	{
         private string symbol;
 
         public SymbolsNode (string symbol)
@@ -17,7 +17,6 @@ namespace indicatorstocks
 		{
 			get {return symbol;}
 		}
-
 	}
 
 	public partial class PreferencesDialog : Gtk.Dialog
@@ -34,19 +33,18 @@ namespace indicatorstocks
 			notebook1.CurrentPage = 0;
 
 			updateIntervalSpinButton.Value = config.UpdateInterval;
+			updateIntervalSpinButton.UpdatePolicy = Gtk.SpinButtonUpdatePolicy.IfValid;
 
 			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
 			nodeviewSymbols.ShowAll();
 
-			foreach (string s in config.GetSymbols())
+			foreach (string s in config.Symbols)
 				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
 
 			buttonAddSymbol.Sensitive = false;
 			buttonDeleteSymbol.Sensitive = false;
 
-
-			// TODO: define events using GUI designer
 			entryNewSymbol.FocusInEvent += OnEntrySelected; 
 			entryNewSymbol.TextInserted += OnEntryTextChanged;
 			entryNewSymbol.TextDeleted += OnEntryTextChanged;
@@ -56,6 +54,9 @@ namespace indicatorstocks
 			buttonOk.Clicked += OnClickedOk;
 			buttonAddSymbol.Clicked += OnClickedAddSymbol;
 			buttonDeleteSymbol.Clicked += OnClickedDeleteSymbol;
+
+			updateIntervalSpinButton.ValueChanged += 
+				new global::System.EventHandler(OnUpdateIntervalSpinButtonValueChanged);
 		}
 
 		~PreferencesDialog()
@@ -108,4 +109,3 @@ namespace indicatorstocks
 		}
 	}
 }
-

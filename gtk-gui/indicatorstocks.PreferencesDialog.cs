@@ -214,7 +214,6 @@ namespace indicatorstocks
 			this.DefaultWidth = 265;
 			this.DefaultHeight = 375;
 			this.Show ();
-			this.updateIntervalSpinButton.ValueChanged += new global::System.EventHandler (this.OnUpdateIntervalSpinButtonValueChanged);
 		}
 	}
 }

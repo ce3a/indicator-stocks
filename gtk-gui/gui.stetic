@@ -146,7 +146,6 @@
                         <property name="ClimbRate">1</property>
                         <property name="Numeric">True</property>
                         <property name="Value">30</property>
-                        <signal name="ValueChanged" handler="OnUpdateIntervalSpinButtonValueChanged" />
                       </widget>
                       <packing>
                         <property name="Position">1</property>

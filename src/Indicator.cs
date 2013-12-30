@@ -10,16 +10,19 @@ using Gdk;
 using Pango;
 using AppIndicator;
 using ce3a.Yahoo.Finance;
+using ce3a.Logging;
 
 namespace indicatorstocks
 {
-	public class Indicator
+	public class Indicator : IObserver<ConfigurationProvider>
 	{
 		private ApplicationIndicator indicator;
 		private Menu menu;
 
 		private Configuration config = Configuration.Instance;
 		private System.Timers.Timer timer;
+		private System.Object thisLock = new System.Object();
+		private static ILogger logger;
 
 		private Screen screen = Screen.Default;
 		private Pango.Layout layout;
@@ -37,17 +40,22 @@ namespace indicatorstocks
 			get { return symbols; }
 			set 
 			{ 
-				symbols = value;
-				menu.Dispose();
-				BuildMenu();
+				lock (thisLock)
+				{
+					symbols = value;
+					menu.Dispose();
+					BuildMenu();
+				}
 			}
 		}
 
 		public Indicator(string name)
 		{
+			logger = LogManager.Logger;
+
 			indicator = new ApplicationIndicator(name, name, Category.ApplicationStatus);
 
-			symbols = config.GetSymbols();
+			symbols = config.Symbols;
 
 			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
 			layout.FontDescription = new FontDescription();
@@ -55,17 +63,20 @@ namespace indicatorstocks
 			spaceWidth = GetTextPixelLength(symbolPadChar.ToString());
 
 			BuildMenu();
+
+			config.Subscribe(this);
 		}
 
 		public void Start()
 		{
-			DoWork();
-
-			timer = new System.Timers.Timer(config.UpdateInterval * 1000);
+			timer = new System.Timers.Timer(1000);
 			timer.Elapsed += new ElapsedEventHandler(OnTimer);
 			timer.Enabled = true;
-			timer.AutoReset = true;
+		}
 
+		public void Stop()
+		{
+			timer.Dispose();
 		}
 
 		public static string GetSymbolFromMenuItem(MenuItem menuItem)
@@ -80,7 +91,7 @@ namespace indicatorstocks
 
 			menu = new Menu();
 
-			foreach (string symbol in symbols)
+			foreach (string symbol in Symbols)
 			{
 				MenuItem menuItem = new MenuItem(symbol + ":" + quoteUnknown);
 				menuItem.Activated += OnQuoteSelected;
@@ -168,31 +179,32 @@ namespace indicatorstocks
 		    });
 		}
 
-		private void DoWork()
-		{
-			float[] quotes = Quotes.GetQuotes(Symbols, Format.Bid);
-
-			Update(quotes);
-		}
-
-		#region EVENT HANDLER
+		#region timer even handler
 		protected void OnTimer(object sender, ElapsedEventArgs e)
 		{
-			DoWork();
-		}
+			timer.Enabled = false;
 
+			float[] quotes = Quotes.GetQuotes(Symbols, Format.Bid);
+
+			lock (thisLock)
+			{
+				Update(quotes);
+			}
+
+			timer.Interval = config.UpdateInterval * 1000;
+			timer.Enabled = true;
+		}
+		#endregion
+
+		#region gui event handler
 		protected void OnPrefs(object sender, EventArgs args)
 		{
 			PreferencesDialog preferencesDialog = new PreferencesDialog();
 
+			// TODO: dont allow more than one dialog to be opened
+
 			preferencesDialog.Run();
 			preferencesDialog.Destroy();
-
-			// TODO:
-			// cancel quotes request
-			Start();
-
-			Symbols = config.GetSymbols();
 		}
 
 		[DllImport ("glib-2.0.dll")]
@@ -268,6 +280,29 @@ namespace indicatorstocks
 			string url = Quotes.GetChartUrl(symbol);
 
 			Process.Start(url);
+		}
+		#endregion
+
+		#region IObserver implementation
+		public void OnCompleted()
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		public void OnError(Exception error)
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		public void OnNext(ConfigurationProvider configProvider)
+		{
+			logger.LogInfo("Notify Event from ConfigurationProvider received");
+
+			Stop(); // TODO: not sure if it is reliable !!!
+
+			Symbols = config.Symbols;
+
+			Start();
 		}
 		#endregion
 	}
