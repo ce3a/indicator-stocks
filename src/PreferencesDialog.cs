@@ -2,26 +2,26 @@ using System;
 
 namespace indicatorstocks
 {
-	[Gtk.TreeNode (ListOnly=true)]
-	public class SymbolsNode : Gtk.TreeNode 
+	[Gtk.TreeNode(ListOnly=true)]
+	internal class SymbolsNode : Gtk.TreeNode 
 	{
         private string symbol;
 
-        public SymbolsNode (string symbol)
+        public SymbolsNode(string symbol)
         {
 			this.symbol = symbol;
         }
 
-	    [Gtk.TreeNodeValue (Column=0)]
+	    [Gtk.TreeNodeValue(Column=0)]
 		public string Symbol
 		{
-			get {return symbol;}
+			get { return symbol; }
 		}
 	}
 
 	public partial class PreferencesDialog : Gtk.Dialog
 	{
-		private static Configuration config = Configuration.Instance;
+		private Configuration config = Configuration.Instance;
 
 		public PreferencesDialog()
 		{
