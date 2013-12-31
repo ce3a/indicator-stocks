@@ -9,7 +9,7 @@
     <widget-library name="appindicator-sharp, Version=0.2.0.0, Culture=neutral, PublicKeyToken=bcae265d1c7ab4c2" />
     <widget-library name="../bin/Debug/indicator-stocks.exe" internal="true" />
   </import>
-  <widget class="Gtk.Dialog" id="indicatorstocks.PreferencesDialog" design-size="265 375">
+  <widget class="Gtk.Dialog" id="indicatorstocks.PreferencesDialog" design-size="267 375">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="DestroyWithParent">True</property>
@@ -23,7 +23,7 @@
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <child>
               <widget class="Gtk.VBox" id="vbox3">
                 <property name="MemberName" />
@@ -108,7 +108,7 @@
             <child>
               <widget class="Gtk.Label" id="label1">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">Symbols</property>
+                <property name="LabelProp" translatable="yes">Stocks</property>
               </widget>
               <packing>
                 <property name="type">tab</property>

@@ -36,7 +36,7 @@ namespace indicatorstocks
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 1;
+			this.notebook1.CurrentPage = 0;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
@@ -130,7 +130,7 @@ namespace indicatorstocks
 			// Notebook tab
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
-			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Symbols");
+			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Stocks");
 			this.notebook1.SetTabLabel (this.vbox3, this.label1);
 			this.label1.ShowAll ();
 			// Container child notebook1.Gtk.Notebook+NotebookChild
@@ -211,7 +211,7 @@ namespace indicatorstocks
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 265;
+			this.DefaultWidth = 267;
 			this.DefaultHeight = 375;
 			this.Show ();
 		}
