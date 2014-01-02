@@ -199,14 +199,8 @@ namespace indicatorstocks
 		#region gui event handler
 		protected void OnPrefs(object sender, EventArgs args)
 		{
-			Gtk.Application.Invoke(delegate {
-				PreferencesDialog preferencesDialog = new PreferencesDialog();
-
-				// TODO: dont allow more than one dialog to be opened
-
-				preferencesDialog.Run();
-				preferencesDialog.Destroy();
-			});
+			PreferencesDialog prefsDialog = new PreferencesDialog();
+			prefsDialog.ShowAll();
 		}
 
 		[DllImport ("glib-2.0.dll")]
