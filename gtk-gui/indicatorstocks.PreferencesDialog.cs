@@ -16,7 +16,7 @@ namespace indicatorstocks
 		private global::Gtk.VBox vbox4;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Label label4;
-		private global::Gtk.SpinButton updateIntervalSpinButton;
+		private global::Gtk.SpinButton spinButtonUpdateInterval;
 		private global::Gtk.Label label3;
 		private global::Gtk.Label label2;
 		private global::Gtk.Button buttonOk;
@@ -36,7 +36,7 @@ namespace indicatorstocks
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 0;
+			this.notebook1.CurrentPage = 1;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
@@ -152,15 +152,15 @@ namespace indicatorstocks
 			w25.Expand = false;
 			w25.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.updateIntervalSpinButton = new global::Gtk.SpinButton (1, 10000, 10);
-			this.updateIntervalSpinButton.CanFocus = true;
-			this.updateIntervalSpinButton.Name = "updateIntervalSpinButton";
-			this.updateIntervalSpinButton.Adjustment.PageIncrement = 10;
-			this.updateIntervalSpinButton.ClimbRate = 1;
-			this.updateIntervalSpinButton.Numeric = true;
-			this.updateIntervalSpinButton.Value = 30;
-			this.hbox1.Add (this.updateIntervalSpinButton);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.updateIntervalSpinButton]));
+			this.spinButtonUpdateInterval = new global::Gtk.SpinButton (1, 10000, 10);
+			this.spinButtonUpdateInterval.CanFocus = true;
+			this.spinButtonUpdateInterval.Name = "spinButtonUpdateInterval";
+			this.spinButtonUpdateInterval.Adjustment.PageIncrement = 10;
+			this.spinButtonUpdateInterval.ClimbRate = 1;
+			this.spinButtonUpdateInterval.Numeric = true;
+			this.spinButtonUpdateInterval.Value = 30;
+			this.hbox1.Add (this.spinButtonUpdateInterval);
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.spinButtonUpdateInterval]));
 			w26.Position = 1;
 			w26.Expand = false;
 			w26.Fill = false;

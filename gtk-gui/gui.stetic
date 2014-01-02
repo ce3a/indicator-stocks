@@ -23,7 +23,7 @@
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">0</property>
+            <property name="CurrentPage">1</property>
             <child>
               <widget class="Gtk.VBox" id="vbox3">
                 <property name="MemberName" />
@@ -136,7 +136,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="Gtk.SpinButton" id="updateIntervalSpinButton">
+                      <widget class="Gtk.SpinButton" id="spinButtonUpdateInterval">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="Lower">1</property>

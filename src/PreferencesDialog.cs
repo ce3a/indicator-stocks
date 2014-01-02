@@ -19,7 +19,7 @@ namespace indicatorstocks
 		}
 	}
 
-	public partial class PreferencesDialog : Gtk.Dialog
+	public partial class PreferencesDialog : Gtk.Dialog, IObserver<ConfigurationProvider>
 	{
 		private Configuration config = Configuration.Instance;
 
@@ -32,8 +32,7 @@ namespace indicatorstocks
 
 			notebook1.CurrentPage = 0;
 
-			updateIntervalSpinButton.Value = config.UpdateInterval;
-			updateIntervalSpinButton.UpdatePolicy = Gtk.SpinButtonUpdatePolicy.IfValid;
+			spinButtonUpdateInterval.Value = config.UpdateInterval;
 
 			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
@@ -55,8 +54,9 @@ namespace indicatorstocks
 			buttonAddSymbol.Clicked += OnClickedAddSymbol;
 			buttonDeleteSymbol.Clicked += OnClickedDeleteSymbol;
 
-			updateIntervalSpinButton.ValueChanged += 
-				new global::System.EventHandler(OnUpdateIntervalSpinButtonValueChanged);
+			spinButtonUpdateInterval.ValueChanged += OnSpinButtonUpdateIntervalValueChanged;
+
+			config.Subscribe(this);
 		}
 
 		~PreferencesDialog()
@@ -64,6 +64,7 @@ namespace indicatorstocks
 			config.Save();
 		}
 
+		#region event handler
 		private void OnClickedOk(object sender, EventArgs args)
 		{
 			this.Destroy();
@@ -72,7 +73,6 @@ namespace indicatorstocks
 		private void OnClickedAddSymbol(object sender, EventArgs args)
 		{
 			config.AddSymbols(new string[]{entryNewSymbol.Text});
-			nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(entryNewSymbol.Text));
 			entryNewSymbol.Text = "";
 		}
 
@@ -103,9 +103,33 @@ namespace indicatorstocks
 			buttonDeleteSymbol.Sensitive = true;
 		}
 
-		protected void OnUpdateIntervalSpinButtonValueChanged(object sender, EventArgs e)
+		protected void OnSpinButtonUpdateIntervalValueChanged(object sender, EventArgs e)
 		{
 			config.UpdateInterval = ((Gtk.SpinButton)sender).ValueAsInt;
 		}
+		#endregion
+
+		#region IObserver implementation
+		public void OnCompleted()
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		public void OnError(Exception error)
+		{
+			throw new System.NotImplementedException ();
+		}
+
+		public void OnNext(ConfigurationProvider configProvider)
+		{
+			nodeviewSymbols.NodeStore.Clear();
+			foreach (string s in config.Symbols)
+				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
+
+			spinButtonUpdateInterval.ValueChanged -= OnSpinButtonUpdateIntervalValueChanged;
+			spinButtonUpdateInterval.Value = config.UpdateInterval;
+			spinButtonUpdateInterval.ValueChanged += OnSpinButtonUpdateIntervalValueChanged;
+		}
+		#endregion
 	}
 }
