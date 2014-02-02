@@ -36,7 +36,7 @@ namespace indicatorstocks
 			this.notebook1 = new global::Gtk.Notebook ();
 			this.notebook1.CanFocus = true;
 			this.notebook1.Name = "notebook1";
-			this.notebook1.CurrentPage = 1;
+			this.notebook1.CurrentPage = 0;
 			// Container child notebook1.Gtk.Notebook+NotebookChild
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
@@ -69,7 +69,6 @@ namespace indicatorstocks
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.hbuttonbox3 = new global::Gtk.HButtonBox ();
 			this.hbuttonbox3.Name = "hbuttonbox3";
-			this.hbuttonbox3.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(2));
 			// Container child hbuttonbox3.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonAddSymbol = new global::Gtk.Button ();
 			this.buttonAddSymbol.CanFocus = true;
@@ -86,7 +85,7 @@ namespace indicatorstocks
 			w6.Add (w7);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w9 = new global::Gtk.Label ();
-			w9.LabelProp = global::Mono.Unix.Catalog.GetString ("_Hinzufügen");
+			w9.LabelProp = global::Mono.Unix.Catalog.GetString ("_Add");
 			w9.UseUnderline = true;
 			w6.Add (w9);
 			w5.Add (w6);
@@ -111,7 +110,7 @@ namespace indicatorstocks
 			w15.Add (w16);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w18 = new global::Gtk.Label ();
-			w18.LabelProp = global::Mono.Unix.Catalog.GetString ("_Entfernen");
+			w18.LabelProp = global::Mono.Unix.Catalog.GetString ("_Remove");
 			w18.UseUnderline = true;
 			w15.Add (w18);
 			w14.Add (w15);

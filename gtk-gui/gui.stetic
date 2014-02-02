@@ -23,7 +23,7 @@
           <widget class="Gtk.Notebook" id="notebook1">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <child>
               <widget class="Gtk.VBox" id="vbox3">
                 <property name="MemberName" />
@@ -65,14 +65,13 @@
                   <widget class="Gtk.HButtonBox" id="hbuttonbox3">
                     <property name="MemberName" />
                     <property name="Size">2</property>
-                    <property name="LayoutStyle">Edge</property>
                     <child>
                       <widget class="Gtk.Button" id="buttonAddSymbol">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="Type">TextAndIcon</property>
                         <property name="Icon">stock:gtk-add Menu</property>
-                        <property name="Label" translatable="yes">_Hinzufügen</property>
+                        <property name="Label" translatable="yes">_Add</property>
                         <property name="UseUnderline">True</property>
                       </widget>
                       <packing>
@@ -86,7 +85,7 @@
                         <property name="CanFocus">True</property>
                         <property name="Type">TextAndIcon</property>
                         <property name="Icon">stock:gtk-remove Menu</property>
-                        <property name="Label" translatable="yes">_Entfernen</property>
+                        <property name="Label" translatable="yes">_Remove</property>
                         <property name="UseUnderline">True</property>
                       </widget>
                       <packing>

@@ -1,0 +1,31 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="topic" style="task"
+      id="remove-stocks">
+
+  <info>
+    <link type="guide" xref="index#stocks"/>
+    <desc>Remove stocks from the indicator.</desc>
+    <revision pkgversion="3.0" version="0.1" date="2010-05-29" status="candidate"/>
+    <credit type="author">
+      <name>Sergej Sawazki</name>
+      <email>ce3a@gmx.de</email>
+    </credit>    
+<!--
+    <copyright>
+      <year>2014</year>
+      <name>Sergej Sawazki</name>
+    </copyright>
+-->
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+  </info>
+
+  <title>Remove a stock</title>
+  
+  <p>
+	To remove a stock, click on <gui>Preferences</gui>, select the <gui>Stocks</gui> tab,
+	then select the stock you want to remove and click the <gui>Remove</gui> button.
+  </p>
+
+
+</page>

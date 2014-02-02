@@ -11,7 +11,7 @@
     </credit>
 <!--    
     <copyright>
-      <year>2013</year>
+      <year>2014</year>
       <name>Sergej Sawazki</name>
     </copyright>
 -->
@@ -20,8 +20,8 @@
 
   <title>indicator-stocks</title>
 
-  <section id="symbols" style="2column">
-    <title>Managing Symbols</title>
+  <section id="stocks" style="2column">
+    <title>Managing Stocks</title>
   </section>
 
   <section id="dev" style="2column">
