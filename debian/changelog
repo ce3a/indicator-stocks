@@ -1,3 +1,9 @@
+indicator-stocks (0.2.0-0ubuntu1) saucy; urgency=low
+
+  * Added Preferences dialog.
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Sun, 02 Feb 2014 19:29:31 +0100
+
 indicator-stocks (0.1.2-0ubuntu2) saucy; urgency=low
 
   * Fixed package dependency issue (libappindicator0.1-cil).
