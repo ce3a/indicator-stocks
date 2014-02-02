@@ -60,7 +60,7 @@ namespace indicatorstocks
 			this.entryNewSymbol.Name = "entryNewSymbol";
 			this.entryNewSymbol.Text = global::Mono.Unix.Catalog.GetString ("enter new symbol here...");
 			this.entryNewSymbol.IsEditable = true;
-			this.entryNewSymbol.InvisibleChar = '•';
+			this.entryNewSymbol.InvisibleChar = '-';
 			this.vbox3.Add (this.entryNewSymbol);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.entryNewSymbol]));
 			w4.Position = 1;

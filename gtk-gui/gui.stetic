@@ -52,7 +52,7 @@
                     <property name="CanFocus">True</property>
                     <property name="Text" translatable="yes">enter new symbol here...</property>
                     <property name="IsEditable">True</property>
-                    <property name="InvisibleChar">•</property>
+                    <property name="InvisibleChar">-</property>
                   </widget>
                   <packing>
                     <property name="Position">1</property>
