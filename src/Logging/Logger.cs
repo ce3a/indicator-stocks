@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace ce3a.Logging
 {
@@ -19,14 +20,26 @@ namespace ce3a.Logging
 
 		public void LogInfo(string message)
 		{
-			if (Verbose)
-				Console.WriteLine(String.Format("{0}: {1}", "[I]", message));
+			if (!Verbose)
+				return;
+
+			StringReader stringReader = new StringReader(message); 
+			String line;
+
+			while ((line = stringReader.ReadLine()) != null)
+				Console.WriteLine(String.Format("{0}: {1}", "[I]", line));
 		}
 
  		public void LogError(string message)
 		{
-			if (Verbose)
-				Console.WriteLine(String.Format("{0}: {1}", "[E]", message));
+			if (!Verbose)
+				return;
+
+			StringReader stringReader = new StringReader(message); 
+			String line;
+
+			while ((line = stringReader.ReadLine()) != null)
+				Console.WriteLine(String.Format("{0}: {1}", "[E]", line));
 		}
 	}
 }

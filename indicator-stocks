@@ -4,4 +4,4 @@ export MONO_PATH=$MONO_PATH:/usr/lib/indicator-stocks
 
 THIS_EXE="/usr/lib/indicator-stocks/indicator-stocks.exe"
 
-exec mono $THIS_EXE
+exec mono $THIS_EXE "$@"

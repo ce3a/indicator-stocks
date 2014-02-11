@@ -33,7 +33,7 @@ namespace ce3a.Yahoo.Finance
 				using (HttpWebResponse rsp = (HttpWebResponse)req.GetResponse())
 				{
 					String csv = new StreamReader(rsp.GetResponseStream (), Encoding.ASCII).ReadToEnd();
-					logger.LogInfo(String.Format("{0}:\n{1}","HTTP response", csv));
+					logger.LogInfo(String.Format("{0}:\n{1}","Received HTTP response", csv));
 
 					StringReader stringReader = new StringReader(csv);
 
