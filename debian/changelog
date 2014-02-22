@@ -1,3 +1,9 @@
+indicator-stocks (0.2.0-0ubuntu2) saucy; urgency=low
+
+  * Changed entryNewSymbol.InvisibleChar to '-', '•' caused launchpad build error.
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Sun, 02 Feb 2014 20:20:17 +0100
+
 indicator-stocks (0.2.0-0ubuntu1) saucy; urgency=low
 
   * Added Preferences dialog.
