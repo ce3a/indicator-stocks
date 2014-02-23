@@ -27,12 +27,11 @@ namespace indicatorstocks
 		private Screen screen = Screen.Default;
 		private Pango.Layout layout;
 
-		private readonly int spaceWidth;
+		private int maxNbrOfTabs;
+		private readonly int tabWidth;
+		private static readonly char tabChar = '\t';
 		private static readonly string quoteUnknown = "???";
-		private static readonly char symbolPadChar = '\x2007';
-		private static readonly string symbolQuoteSeparator = "\t";
-
-		private int maxWidth = 0;
+		private static readonly char quotePadChar = '\x2007';
 
 		private string[] symbols;
 		private string[] Symbols
@@ -58,9 +57,9 @@ namespace indicatorstocks
 			symbols = config.Symbols;
 
 			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
-			layout.FontDescription = new FontDescription();
+			layout.FontDescription = Pango.FontDescription.FromString ("Ubuntu  " + 11); // FIXME get current font
 
-			spaceWidth = GetTextPixelLength(symbolPadChar.ToString());
+			tabWidth = GetTextPixelLength(tabChar.ToString());
 
 			BuildMenu();
 
@@ -82,7 +81,7 @@ namespace indicatorstocks
 		public static string GetSymbolFromMenuItem(MenuItem menuItem)
 		{
 			string symbol = ((Label)menuItem.Child).Text;
-			return symbol.Substring(0, symbol.IndexOf(symbolPadChar));
+			return symbol.Substring(0, symbol.IndexOf(tabChar));
 		}
 
 		private void BuildMenu()
@@ -91,13 +90,17 @@ namespace indicatorstocks
 
 			menu = new Menu();
 
+			maxNbrOfTabs = 0;
+
 			foreach (string symbol in Symbols)
 			{
-				MenuItem menuItem = new MenuItem(symbol + ":" + quoteUnknown);
+				MenuItem menuItem = new MenuItem(symbol + ": " + quoteUnknown);
 				menuItem.Activated += OnQuoteSelected;
 				menu.Append(menuItem);
 
-				maxWidth = Math.Max(maxWidth, GetTextPixelLength(symbol));
+				maxNbrOfTabs = Math.Max(
+					maxNbrOfTabs,
+					(int)Math.Ceiling((double)GetTextPixelLength(symbol) / tabWidth));
 			}
 
 			AddDefaultMenus(menu);
@@ -167,13 +170,14 @@ namespace indicatorstocks
 						// HACK:  symbol and quote aligmant based on string width in pixels.
 						// FIXME: Consider using Pango.Layout instead.
 						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString());
-						int nbrOfPadChars = (maxWidth - curWidth) / spaceWidth + symbolsEnum.Current.ToString().Length + 1;
+						int nbrOfTabs = (int)Math.Ceiling(
+							Math.Round((double)(maxNbrOfTabs * tabWidth - curWidth) / tabWidth, 1));
 
 						Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
-						label.Text = 
-							symbolsEnum.Current.ToString().PadRight(nbrOfPadChars, symbolPadChar) + 
-								symbolQuoteSeparator + 
-							(quote > 0 ? quote.ToString("0.00").PadLeft(8, symbolPadChar) : quoteUnknown);
+						label.Text = symbolsEnum.Current.ToString();
+						for (int i = 0; i < nbrOfTabs; i++)
+							label.Text += "\t";
+						label.Text += (quote > 0 ? quote.ToString("0.00").PadLeft(8, quotePadChar) : quoteUnknown);
 					}
 				}
 		    });
