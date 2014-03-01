@@ -29,6 +29,7 @@ namespace ce3a.Yahoo.Finance
 			{
 				logger.LogInfo(String.Format("{0}: \"{1}\"", "Sending HTTP request", url));
 				HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+				logger.LogInfo("Waiting for response...");
 
 				using (HttpWebResponse rsp = (HttpWebResponse)req.GetResponse())
 				{

@@ -27,8 +27,6 @@ namespace indicatorstocks
 		private Screen screen = Screen.Default;
 		private Pango.Layout layout;
 
-		private int maxNbrOfTabs;
-		private readonly int tabWidth;
 		private static readonly char tabChar = '\t';
 		private static readonly string quoteUnknown = "???";
 		private static readonly char quotePadChar = '\x2007';
@@ -57,9 +55,6 @@ namespace indicatorstocks
 			symbols = config.Symbols;
 
 			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
-			layout.FontDescription = Pango.FontDescription.FromString ("Ubuntu  " + 11); // FIXME get current font
-
-			tabWidth = GetTextPixelLength(tabChar.ToString());
 
 			BuildMenu();
 
@@ -90,17 +85,11 @@ namespace indicatorstocks
 
 			menu = new Menu();
 
-			maxNbrOfTabs = 0;
-
 			foreach (string symbol in Symbols)
 			{
 				MenuItem menuItem = new MenuItem(symbol + ": " + quoteUnknown);
 				menuItem.Activated += OnQuoteSelected;
 				menu.Append(menuItem);
-
-				maxNbrOfTabs = Math.Max(
-					maxNbrOfTabs,
-					(int)Math.Ceiling((double)GetTextPixelLength(symbol) / tabWidth));
 			}
 
 			AddDefaultMenus(menu);
@@ -147,6 +136,30 @@ namespace indicatorstocks
 			return menu;
 		}
 
+		private string GetFontName()
+		{
+			string font = "Ubuntu 11";
+
+			Process p = new Process {
+			    StartInfo = new ProcessStartInfo {
+			        FileName = "gsettings",
+			        Arguments = "get org.gnome.desktop.interface font-name",
+			        UseShellExecute = false,
+			        RedirectStandardOutput = true,
+			        CreateNoWindow = true
+				}
+			};
+
+			p.Start();
+
+			while (!p.StandardOutput.EndOfStream)
+				font = p.StandardOutput.ReadLine();
+
+			p.WaitForExit();
+
+			return font.Trim(new char[]{'\''});
+		}
+
 		private int GetTextPixelLength(string text)
 		{
 			int width, height;
@@ -159,6 +172,22 @@ namespace indicatorstocks
 
 		private void Update(float[] quotes)
 		{
+			logger.LogInfo("Updating MenuItems...");
+
+			int maxNbrOfTabs = 0;
+			int tabWidth;
+
+			string font = GetFontName();
+
+			logger.LogInfo("Label font name: " + font);
+			layout.FontDescription = Pango.FontDescription.FromString(font);
+
+			tabWidth = GetTextPixelLength(tabChar.ToString());
+
+			foreach (string symbol in Symbols)
+				maxNbrOfTabs = Math.Max(maxNbrOfTabs,
+					(int)Math.Ceiling((double)GetTextPixelLength(symbol) / tabWidth));
+
 			Gtk.Application.Invoke(delegate {
 				System.Collections.IEnumerator menuItemEnum = menu.AllChildren.GetEnumerator();
 				System.Collections.IEnumerator symbolsEnum  = symbols.GetEnumerator();
@@ -167,7 +196,7 @@ namespace indicatorstocks
 				{
 					if (menuItemEnum.MoveNext() && symbolsEnum.MoveNext())
 					{
-						// HACK:  symbol and quote aligmant based on string width in pixels.
+						// HACK:  symbol and quote aligment based on string width in pixels.
 						// FIXME: Consider using Pango.Layout instead.
 						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString());
 						int nbrOfTabs = (int)Math.Ceiling(
