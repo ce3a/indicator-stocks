@@ -8,6 +8,9 @@ using System.IO;
 using Gtk;
 using Gdk;
 using Pango;
+
+using GConf;
+
 using AppIndicator;
 using ce3a.Yahoo.Finance;
 using ce3a.Logging;
@@ -26,6 +29,7 @@ namespace indicatorstocks
 
 		private Screen screen = Screen.Default;
 		private Pango.Layout layout;
+		GConf.Client gconfClient;
 
 		private int maxNbrOfTabs;
 		private readonly int tabWidth;
@@ -56,8 +60,16 @@ namespace indicatorstocks
 
 			symbols = config.Symbols;
 
+
+			Gtk.Settings settings = new Gtk.Settings();
+
+			gconfClient = new GConf.Client();
+			string font = (string)gconfClient.Get("/desktop/gnome/interface/font_name");//org.gnome.desktop.interface
+
+
+
 			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
-			layout.FontDescription = Pango.FontDescription.FromString ("Ubuntu  " + 11); // FIXME get current font
+			layout.FontDescription = Pango.FontDescription.FromString (font);
 
 			tabWidth = GetTextPixelLength(tabChar.ToString());
 
