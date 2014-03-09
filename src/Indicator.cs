@@ -198,9 +198,10 @@ namespace indicatorstocks
 					{
 						// HACK:  symbol and quote aligment based on string width in pixels.
 						// FIXME: Consider using Pango.Layout instead.
-						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString());
+						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString() + tabChar);
 						int nbrOfTabs = (int)Math.Ceiling(
-							Math.Round((double)(maxNbrOfTabs * tabWidth - curWidth) / tabWidth, 1));
+							Math.Round((double)(maxNbrOfTabs * tabWidth - curWidth) / tabWidth, 1)
+							+ 2);
 
 						Label label = (Label)((MenuItem)menuItemEnum.Current).Child;
 						label.Text = symbolsEnum.Current.ToString();
