@@ -1,3 +1,9 @@
+indicator-stocks (0.2.1-0ubuntu1) saucy; urgency=low
+
+  * Refactored quotes alignment.
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Sun, 09 Mar 2014 13:52:04 +0100
+
 indicator-stocks (0.2.0-0ubuntu2) saucy; urgency=low
 
   * Changed entryNewSymbol.InvisibleChar to '-', '•' caused launchpad build error.
