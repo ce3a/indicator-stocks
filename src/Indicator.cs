@@ -24,8 +24,7 @@ namespace indicatorstocks
 		private System.Object thisLock = new System.Object();
 		private static ILogger logger;
 
-		private Screen screen = Screen.Default;
-		private Pango.Layout layout;
+
 
 		private static readonly char tabChar = '\t';
 		private static readonly string quoteUnknown = "???";
@@ -53,8 +52,6 @@ namespace indicatorstocks
 			indicator = new ApplicationIndicator(name, name, Category.ApplicationStatus);
 
 			symbols = config.Symbols;
-
-			layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
 
 			BuildMenu();
 
@@ -164,6 +161,10 @@ namespace indicatorstocks
 		{
 			int width, height;
 
+			Screen screen = Screen.Default;
+			Pango.Layout layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
+
+			layout.FontDescription = Pango.FontDescription.FromString(GetFontName());
 		    layout.SetText(text);
 		    layout.GetPixelSize(out width, out height);
 
@@ -177,11 +178,8 @@ namespace indicatorstocks
 			int maxNbrOfTabs = 0;
 			int tabWidth;
 
-			string font = GetFontName();
-
-			logger.LogInfo("Label font name: " + font);
-			logger.LogInfo(String.Format("Size of quotePadChar (\\u{0}): {1} pixel", ((int)quotePadChar).ToString("X"), GetTextPixelLength(quotePadChar.ToString() )));
-			layout.FontDescription = Pango.FontDescription.FromString(font);
+			logger.LogInfo("Label font name: " + GetFontName());
+			logger.LogInfo(String.Format("Size of quotePadChar '\\u{0}': {1} pixel", ((int)quotePadChar).ToString("X"), GetTextPixelLength(quotePadChar.ToString() )));
 
 			tabWidth = GetTextPixelLength(tabChar.ToString());
 
