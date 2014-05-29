@@ -29,7 +29,7 @@ namespace indicatorstocks
 
 		private static readonly char tabChar = '\t';
 		private static readonly string quoteUnknown = "???";
-		private static readonly char quotePadChar = '\x2007';
+		private static readonly char quotePadChar = '\u2007';
 
 		private string[] symbols;
 		private string[] Symbols
@@ -180,6 +180,7 @@ namespace indicatorstocks
 			string font = GetFontName();
 
 			logger.LogInfo("Label font name: " + font);
+			logger.LogInfo(String.Format("Size of quotePadChar (\\u{0}): {1} pixel", ((int)quotePadChar).ToString("X"), GetTextPixelLength(quotePadChar.ToString() )));
 			layout.FontDescription = Pango.FontDescription.FromString(font);
 
 			tabWidth = GetTextPixelLength(tabChar.ToString());
