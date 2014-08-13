@@ -1,4 +1,5 @@
 using System;
+using ce3a.Logging;
 
 namespace indicatorstocks
 {
@@ -22,9 +23,12 @@ namespace indicatorstocks
 	public partial class PreferencesDialog : Gtk.Dialog, IObserver<ConfigurationProvider>
 	{
 		private Configuration config = Configuration.Instance;
+		private static ILogger logger;
 
 		public PreferencesDialog()
 		{
+			logger = LogManager.Logger;
+
 			this.Build();
 
 			// TODO: set Title
@@ -63,6 +67,8 @@ namespace indicatorstocks
 		private void OnClickedOk(object sender, EventArgs args)
 		{
 			this.Destroy();
+
+			logger.LogInfo("Writing configuration file...");
 			config.Save();
 		}
 

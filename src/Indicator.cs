@@ -24,8 +24,6 @@ namespace indicatorstocks
 		private System.Object thisLock = new System.Object();
 		private static ILogger logger;
 
-
-
 		private static readonly char tabChar = '\t';
 		private static readonly string quoteUnknown = "???";
 		private static readonly char quotePadChar = '\u2007';
