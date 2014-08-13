@@ -59,15 +59,11 @@ namespace indicatorstocks
 			config.Subscribe(this);
 		}
 
-		~PreferencesDialog()
-		{
-			config.Save();
-		}
-
 		#region event handler
 		private void OnClickedOk(object sender, EventArgs args)
 		{
 			this.Destroy();
+			config.Save();
 		}
 
 		private void OnClickedAddSymbol(object sender, EventArgs args)

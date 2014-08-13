@@ -67,29 +67,6 @@ namespace indicatorstocks
 			}
 
 			confDoc = XDocument.Load (filePath);
-
-			#region read symbols from symbols.conf (LEGACY)
-			// TODO: remove this region in one of the following releases
-			string oldPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); 
-			oldPath += @"/" + appName + @"/symbols.conf";
-
-			if (File.Exists(oldPath))
-			{
-				List<string> symbols = new List<string>();
-				string line;
-
-				using (StreamReader reader = new StreamReader(oldPath)) 
-				{
-				    while ((line = reader.ReadLine()) != null) 
-				        symbols.Add(line);
-				}
-
-				AddSymbols(symbols.ToArray());
-				Save();
-
-				try { File.Move(oldPath, oldPath + ".back"); } catch {}
-			}
-			#endregion
 		}
 
 		#region IObservable implementation
@@ -104,6 +81,7 @@ namespace indicatorstocks
 
 		public void Save()
 		{
+			// TODO: synchronize file access
 			using (FileStream fs = File.Create(filePath))
 				confDoc.Save(fs);
 		}
