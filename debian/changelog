@@ -1,3 +1,9 @@
+indicator-stocks (0.2.2-0ubuntu1) trusty; urgency=medium
+
+  * Bugfix: Configuration file saving when closing the preferences dialog.
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Wed, 13 Aug 2014 18:37:26 +0200
+
 indicator-stocks (0.2.1-0ubuntu1) saucy; urgency=low
 
   * Refactored quotes alignment.
