@@ -135,34 +135,43 @@ namespace indicatorstocks
 		{
 			string font = "Ubuntu 11";
 
-			Process p = new Process {
-			    StartInfo = new ProcessStartInfo {
-			        FileName = "gsettings",
-			        Arguments = "get org.gnome.desktop.interface font-name",
-			        UseShellExecute = false,
-			        RedirectStandardOutput = true,
-			        CreateNoWindow = true
+			try 
+			{
+				using (Process p = new Process {
+					   	StartInfo = new ProcessStartInfo {
+					        FileName = "gsettings",
+					        Arguments = "get org.gnome.desktop.interface font-name",
+					        UseShellExecute = false,
+					        RedirectStandardOutput = true,
+					        CreateNoWindow = true
+						}
+					}
+				)
+				{
+					p.Start();
+
+					while (!p.StandardOutput.EndOfStream)
+						font = p.StandardOutput.ReadLine();
+
+					p.WaitForExit();
 				}
-			};
-
-			p.Start();
-
-			while (!p.StandardOutput.EndOfStream)
-				font = p.StandardOutput.ReadLine();
-
-			p.WaitForExit();
+			}
+			catch
+			{
+				logger.LogError("Starting 'gsettings' to get the current font-name failed! ");
+			}
 
 			return font.Trim(new char[]{'\''});
 		}
 
-		private int GetTextPixelLength(string text)
+		private int GetTextPixelLength(string text, string font)
 		{
 			int width, height;
 
 			Screen screen = Screen.Default;
 			Pango.Layout layout = new Pango.Layout(PangoHelper.ContextGetForScreen(screen));
 
-			layout.FontDescription = Pango.FontDescription.FromString(GetFontName());
+			layout.FontDescription = Pango.FontDescription.FromString(font);
 		    layout.SetText(text);
 		    layout.GetPixelSize(out width, out height);
 
@@ -176,14 +185,17 @@ namespace indicatorstocks
 			int maxNbrOfTabs = 0;
 			int tabWidth;
 
-			logger.LogInfo("Label font name: " + GetFontName());
-			logger.LogInfo(String.Format("Size of quotePadChar '\\u{0}': {1} pixel", ((int)quotePadChar).ToString("X"), GetTextPixelLength(quotePadChar.ToString() )));
+			// TODO: add a "font has changed"-callback from dconf ???
+			string curFont = GetFontName();
 
-			tabWidth = GetTextPixelLength(tabChar.ToString());
+			logger.LogInfo("Label font name: " + curFont);
+			logger.LogInfo(String.Format("Size of quotePadChar '\\u{0}': {1} pixel", ((int)quotePadChar).ToString("X"), GetTextPixelLength(quotePadChar.ToString(), curFont)));
+
+			tabWidth = GetTextPixelLength(tabChar.ToString(), curFont);
 
 			foreach (string symbol in Symbols)
 				maxNbrOfTabs = Math.Max(maxNbrOfTabs,
-					(int)Math.Ceiling((double)GetTextPixelLength(symbol) / tabWidth));
+					(int)Math.Ceiling((double)GetTextPixelLength(symbol, curFont) / tabWidth));
 
 			Gtk.Application.Invoke(delegate {
 				System.Collections.IEnumerator menuItemEnum = menu.AllChildren.GetEnumerator();
@@ -195,7 +207,7 @@ namespace indicatorstocks
 					{
 						// HACK:  symbol and quote aligment based on string width in pixels.
 						// FIXME: Consider using Pango.Layout instead.
-						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString() + tabChar);
+						int curWidth = GetTextPixelLength(symbolsEnum.Current.ToString() + tabChar, curFont);
 						int nbrOfTabs = (int)Math.Ceiling(
 							Math.Round((double)(maxNbrOfTabs * tabWidth - curWidth) / tabWidth, 1)
 							+ 2);
