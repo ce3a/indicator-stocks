@@ -1,3 +1,9 @@
+indicator-stocks (0.2.3-0ubuntu1) trusty; urgency=medium
+
+  * Refactored getting the font-name (closes GitHub issue #5 ?).
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Wed, 20 Aug 2014 21:34:47 +0200
+
 indicator-stocks (0.2.2-0ubuntu1) trusty; urgency=medium
 
   * Bugfix: Configuration file saving when closing the preferences dialog.
