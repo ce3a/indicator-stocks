@@ -1,4 +1,4 @@
-indicator-stocks (0.2.3-0ubuntu1) trusty; urgency=medium
+indicator-stocks (0.2.3-0ubuntu1) trusty; urgency=high
 
   * Refactored getting the font-name (closes GitHub issue #5 ?).
 
