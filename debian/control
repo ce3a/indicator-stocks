@@ -4,8 +4,8 @@ Priority: extra
 Maintainer: Sergej Sawazki <ce3a@gmx.de>
 Build-Depends: debhelper (>= 8.0.0), cli-common-dev (>= 0.7.1), libappindicator0.1-cil-dev (>= 0.0.19), libglib2.0-cil-dev (>=2.12.10)
 Standards-Version: 3.9.4
-#Homepage: <insert the upstream URL, if relevant>
-#Vcs-Git: git://git.debian.org/collab-maint/indicator-stocks.git
+Homepage: https://github.com/ce3a/indicator-stocks
+Vcs-Git: git@github.com:ce3a/indicator-stocks.git
 Vcs-Browser: https://github.com/ce3a/indicator-stocks
 
 Package: indicator-stocks
