@@ -1,3 +1,9 @@
+indicator-stocks (0.2.4-0ubuntu1) trusty; urgency=low
+
+  * Fixed version string only.
+
+ -- Sergej Sawazki <ce3a@gmx.de>  Sat, 23 Aug 2014 12:48:02 +0200
+
 indicator-stocks (0.2.3-0ubuntu1) trusty; urgency=high
 
   * Refactored getting the font-name (closes GitHub issue #5 ?).
