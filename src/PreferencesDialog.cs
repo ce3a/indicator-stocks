@@ -38,12 +38,13 @@ namespace indicatorstocks
 
 			spinButtonUpdateInterval.Value = config.UpdateInterval;
 
-			nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
+			// https://bugzilla.xamarin.com/show_bug.cgi?id=51688
+			// https://bugzilla.xamarin.com/show_bug.cgi?id=33448
+			//nodeviewSymbols.NodeStore = new Gtk.NodeStore(typeof (SymbolsNode));
+			nodeviewSymbols = new Gtk.NodeView(Store);
+
 			nodeviewSymbols.AppendColumn("Symbol", new Gtk.CellRendererText (), "text", 0);
 			nodeviewSymbols.ShowAll();
-
-			foreach (string s in config.Symbols)
-				nodeviewSymbols.NodeStore.AddNode(new SymbolsNode(s));
 
 			buttonAddSymbol.Sensitive = false;
 			buttonDeleteSymbol.Sensitive = false;
@@ -61,6 +62,17 @@ namespace indicatorstocks
 			spinButtonUpdateInterval.ValueChanged += OnSpinButtonUpdateIntervalValueChanged;
 
 			config.Subscribe(this);
+		}
+
+		Gtk.NodeStore store;
+		Gtk.NodeStore Store {
+			get {
+				store = new Gtk.NodeStore(typeof (SymbolsNode));
+				foreach (string s in config.Symbols)
+					store.AddNode(new SymbolsNode(s));
+
+				return store;
+			}
 		}
 
 		#region event handler
